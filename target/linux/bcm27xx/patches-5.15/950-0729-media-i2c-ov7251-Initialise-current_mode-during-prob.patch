@@ -15,11 +15,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-<<<<<<< HEAD
 @@ -1531,6 +1531,8 @@ static int ov7251_probe(struct i2c_clien
-=======
-@@ -1529,6 +1529,8 @@ static int ov7251_probe(struct i2c_clien
->>>>>>> d08eedd536 (ipq806x-nss)
  
  	mutex_init(&ov7251->lock);
  

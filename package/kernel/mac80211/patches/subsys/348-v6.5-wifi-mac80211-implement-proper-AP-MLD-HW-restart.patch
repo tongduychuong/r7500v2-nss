@@ -17,11 +17,7 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
 --- a/net/mac80211/util.c
 +++ b/net/mac80211/util.c
-<<<<<<< HEAD
-@@ -2348,6 +2348,35 @@ static int ieee80211_reconfig_nan(struct
-=======
 @@ -2342,6 +2342,35 @@ static int ieee80211_reconfig_nan(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  	return 0;
  }
  
@@ -61,7 +57,7 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 @@ -2613,7 +2642,13 @@ int ieee80211_reconfig(struct ieee80211_
 =======
 @@ -2604,7 +2633,13 @@ int ieee80211_reconfig(struct ieee80211_
->>>>>>> d08eedd536 (ipq806x-nss)
+>>>>>>> 3d3919b90e (mac80211: refresh regular mac80211 patches)
  			changed |= BSS_CHANGED_IBSS;
  			fallthrough;
  		case NL80211_IFTYPE_AP:
@@ -80,7 +76,7 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 @@ -2623,6 +2658,13 @@ int ieee80211_reconfig(struct ieee80211_
 =======
 @@ -2614,6 +2649,13 @@ int ieee80211_reconfig(struct ieee80211_
->>>>>>> d08eedd536 (ipq806x-nss)
+>>>>>>> 3d3919b90e (mac80211: refresh regular mac80211 patches)
  			if (sdata->vif.type == NL80211_IFTYPE_AP) {
  				changed |= BSS_CHANGED_AP_PROBE_RESP;
  

@@ -120,10 +120,7 @@ hostapd_common_add_device_config() {
 	config_add_int rssi_reject_assoc_rssi
 	config_add_int rssi_ignore_probe_request
 	config_add_int maxassoc
-<<<<<<< HEAD
-=======
 	config_add_boolean vendor_vht
->>>>>>> d08eedd536 (ipq806x-nss)
 
 	config_add_string acs_chan_bias
 	config_add_array hostapd_options
@@ -143,11 +140,7 @@ hostapd_prepare_device_config() {
 	json_get_vars country country3 country_ie beacon_int:100 doth require_mode legacy_rates \
 		acs_chan_bias local_pwr_constraint spectrum_mgmt_required airtime_mode cell_density \
 		rts_threshold beacon_rate rssi_reject_assoc_rssi rssi_ignore_probe_request maxassoc \
-<<<<<<< HEAD
-		mbssid:0
-=======
 		vendor_vht mbssid:0
->>>>>>> d08eedd536 (ipq806x-nss)
 
 	hostapd_set_log_options base_cfg
 
@@ -216,10 +209,7 @@ hostapd_prepare_device_config() {
 				set_default rate_list "24000 36000 48000 54000"
 				set_default basic_rate_list "24000"
 			fi
-<<<<<<< HEAD
-=======
 			[ -n "$vendor_vht" ] && append base_cfg "vendor_vht=$vendor_vht" "$N"
->>>>>>> d08eedd536 (ipq806x-nss)
 		;;
 		a)
 			if [ "$cell_density" -eq 1 ]; then

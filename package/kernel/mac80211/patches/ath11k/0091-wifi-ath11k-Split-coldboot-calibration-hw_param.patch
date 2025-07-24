@@ -115,11 +115,7 @@ Link: https://lore.kernel.org/r/20230726141032.3061-2-quic_rajkbhag@quicinc.com
  		.cbcal_restart_fw = true,
  		.fix_l1ss = true,
  		.supports_dynamic_smps_6ghz = false,
-<<<<<<< HEAD
 @@ -750,6 +758,18 @@ void ath11k_fw_stats_free(struct ath11k_
-=======
-@@ -749,6 +757,18 @@ void ath11k_fw_stats_free(struct ath11k_
->>>>>>> d08eedd536 (ipq806x-nss)
  	ath11k_fw_stats_bcn_free(&stats->bcn);
  }
  
@@ -140,11 +136,7 @@ Link: https://lore.kernel.org/r/20230726141032.3061-2-quic_rajkbhag@quicinc.com
  	int ret;
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
-<<<<<<< HEAD
 @@ -1188,6 +1188,7 @@ void ath11k_core_halt(struct ath11k *ar)
-=======
-@@ -1186,6 +1186,7 @@ void ath11k_core_halt(struct ath11k *ar)
->>>>>>> d08eedd536 (ipq806x-nss)
  int ath11k_core_resume(struct ath11k_base *ab);
  int ath11k_core_suspend(struct ath11k_base *ab);
  void ath11k_core_pre_reconfigure_recovery(struct ath11k_base *ab);
@@ -166,11 +158,7 @@ Link: https://lore.kernel.org/r/20230726141032.3061-2-quic_rajkbhag@quicinc.com
  	u32 num_vdevs;
 --- a/drivers/net/wireless/ath/ath11k/qmi.c
 +++ b/drivers/net/wireless/ath/ath11k/qmi.c
-<<<<<<< HEAD
 @@ -2091,7 +2091,7 @@ static int ath11k_qmi_assign_target_mem_
-=======
-@@ -2082,7 +2082,7 @@ static int ath11k_qmi_assign_target_mem_
->>>>>>> d08eedd536 (ipq806x-nss)
  				return -EINVAL;
  			}
  
@@ -179,11 +167,7 @@ Link: https://lore.kernel.org/r/20230726141032.3061-2-quic_rajkbhag@quicinc.com
  				if (hremote_node) {
  					ab->qmi.target_mem[idx].paddr =
  							res.start + host_ddr_sz;
-<<<<<<< HEAD
 @@ -3221,8 +3221,8 @@ static void ath11k_qmi_driver_event_work
-=======
-@@ -3212,8 +3212,8 @@ static void ath11k_qmi_driver_event_work
->>>>>>> d08eedd536 (ipq806x-nss)
  				break;
  			}
  

@@ -73,11 +73,8 @@ endef
 
 HOST_BUILD_PREFIX := $(STAGING_DIR_HOST)
 
-<<<<<<< HEAD
 HOST_CFLAGS +=-std=gnu17
 
-=======
->>>>>>> d08eedd536 (ipq806x-nss)
 CONFIGURE_VARS += \
 	grub_build_mkfont_excuse="don't want fonts"
 

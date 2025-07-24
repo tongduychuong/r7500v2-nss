@@ -13,11 +13,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.org>
 
 --- a/drivers/hid/usbhid/hid-core.c
 +++ b/drivers/hid/usbhid/hid-core.c
-<<<<<<< HEAD
 @@ -1129,6 +1129,7 @@ static int usbhid_start(struct hid_devic
-=======
-@@ -1126,6 +1126,7 @@ static int usbhid_start(struct hid_devic
->>>>>>> d08eedd536 (ipq806x-nss)
  				interval = hid_kbpoll_interval;
  			break;
  		}

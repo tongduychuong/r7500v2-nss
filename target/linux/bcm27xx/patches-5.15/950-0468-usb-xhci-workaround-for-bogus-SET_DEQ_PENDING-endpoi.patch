@@ -26,11 +26,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
 
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-<<<<<<< HEAD
 @@ -677,9 +677,9 @@ deq_found:
-=======
-@@ -675,9 +675,9 @@ deq_found:
->>>>>>> d08eedd536 (ipq806x-nss)
  	}
  
  	if ((ep->ep_state & SET_DEQ_PENDING)) {

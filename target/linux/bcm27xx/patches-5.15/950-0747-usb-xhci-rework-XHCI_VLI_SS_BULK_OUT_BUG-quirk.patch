@@ -13,11 +13,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
 
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-<<<<<<< HEAD
 @@ -3774,7 +3774,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
-=======
-@@ -3769,7 +3769,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
->>>>>>> d08eedd536 (ipq806x-nss)
  	unsigned int num_trbs;
  	unsigned int start_cycle, num_sgs = 0;
  	unsigned int enqd_len, block_len, trb_buff_len, full_len;
@@ -26,11 +22,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	u32 field, length_field, remainder, maxpacket;
  	u64 addr, send_addr;
  
-<<<<<<< HEAD
 @@ -3820,14 +3820,9 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
-=======
-@@ -3815,14 +3815,9 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
->>>>>>> d08eedd536 (ipq806x-nss)
  	send_addr = addr;
  
  	if (xhci->quirks & XHCI_VLI_SS_BULK_OUT_BUG &&
@@ -48,11 +40,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	}
  
  	/* Queue the TRBs, even if they are zero-length */
-<<<<<<< HEAD
 @@ -3842,7 +3837,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
-=======
-@@ -3837,7 +3832,7 @@ int xhci_queue_bulk_tx(struct xhci_hcd *
->>>>>>> d08eedd536 (ipq806x-nss)
  		if (enqd_len + trb_buff_len > full_len)
  			trb_buff_len = full_len - enqd_len;
  

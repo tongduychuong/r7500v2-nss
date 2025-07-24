@@ -54,11 +54,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  		.exposure_def = 504,
  		.vts = 0x23c,
  		.timeperframe = {
-<<<<<<< HEAD
 @@ -917,8 +915,8 @@ static int ov7251_set_format(struct v4l2
-=======
-@@ -915,8 +913,8 @@ static int ov7251_set_format(struct v4l2
->>>>>>> d08eedd536 (ipq806x-nss)
  					 h_blank, 1, h_blank);
  		__v4l2_ctrl_s_ctrl(ov7251->hblank, h_blank);
  
@@ -69,11 +65,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  					       1, new_mode->exposure_def);
  		if (ret < 0)
  			goto exit;
-<<<<<<< HEAD
 @@ -1094,8 +1092,8 @@ static int ov7251_set_frame_interval(str
-=======
-@@ -1092,8 +1090,8 @@ static int ov7251_set_frame_interval(str
->>>>>>> d08eedd536 (ipq806x-nss)
  	new_mode = ov7251_find_mode_by_ival(ov7251, &fi->interval);
  
  	if (new_mode != ov7251->current_mode) {

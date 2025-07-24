@@ -1123,11 +1123,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.org>
  }
 --- a/drivers/usb/core/hub.c
 +++ b/drivers/usb/core/hub.c
-<<<<<<< HEAD
 @@ -5689,7 +5689,7 @@ static void port_event(struct usb_hub *h
-=======
-@@ -5679,7 +5679,7 @@ static void port_event(struct usb_hub *h
->>>>>>> d08eedd536 (ipq806x-nss)
  		port_dev->over_current_count++;
  		port_over_current_notify(port_dev);
  

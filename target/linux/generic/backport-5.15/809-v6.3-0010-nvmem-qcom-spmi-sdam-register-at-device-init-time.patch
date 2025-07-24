@@ -21,11 +21,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/nvmem/qcom-spmi-sdam.c
 +++ b/drivers/nvmem/qcom-spmi-sdam.c
-<<<<<<< HEAD
 @@ -176,18 +176,7 @@ static struct platform_driver sdam_drive
-=======
-@@ -175,18 +175,7 @@ static struct platform_driver sdam_drive
->>>>>>> d08eedd536 (ipq806x-nss)
  	},
  	.probe		= sdam_probe,
  };

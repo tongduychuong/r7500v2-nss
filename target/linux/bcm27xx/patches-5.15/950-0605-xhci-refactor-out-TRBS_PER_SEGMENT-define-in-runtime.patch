@@ -145,11 +145,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	if (ret)
  		return -ENOMEM;
  
-<<<<<<< HEAD
 @@ -1826,7 +1830,7 @@ int xhci_alloc_erst(struct xhci_hcd *xhc
-=======
-@@ -1820,7 +1824,7 @@ int xhci_alloc_erst(struct xhci_hcd *xhc
->>>>>>> d08eedd536 (ipq806x-nss)
  	for (val = 0; val < evt_ring->num_segs; val++) {
  		entry = &erst->entries[val];
  		entry->seg_addr = cpu_to_le64(seg->dma);
@@ -209,11 +205,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  		xhci_err(xhci, "Tried to move enqueue past ring segment\n");
  		return;
  	}
-<<<<<<< HEAD
 @@ -3319,7 +3322,7 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd
-=======
-@@ -3314,7 +3317,7 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd
->>>>>>> d08eedd536 (ipq806x-nss)
  	 * that clears the EHB.
  	 */
  	while (xhci_handle_event(xhci, ir) > 0) {
@@ -222,11 +214,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  			continue;
  		xhci_update_erst_dequeue(xhci, ir, event_ring_deq);
  		event_ring_deq = ir->event_ring->dequeue;
-<<<<<<< HEAD
 @@ -3461,7 +3464,8 @@ static int prepare_ring(struct xhci_hcd
-=======
-@@ -3456,7 +3459,8 @@ static int prepare_ring(struct xhci_hcd
->>>>>>> d08eedd536 (ipq806x-nss)
  		}
  	}
  
@@ -260,11 +248,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	 * when the cycle bit is set to 1.
 --- a/drivers/usb/host/xhci.h
 +++ b/drivers/usb/host/xhci.h
-<<<<<<< HEAD
 @@ -1391,6 +1391,7 @@ struct xhci_ring {
-=======
-@@ -1386,6 +1386,7 @@ struct xhci_ring {
->>>>>>> d08eedd536 (ipq806x-nss)
  	unsigned int		num_trbs_free;
  	unsigned int		num_trbs_free_temp;
  	unsigned int		bounce_buf_len;

@@ -2,11 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=r8168
 PKG_VERSION:=8.055.00
-<<<<<<< HEAD
 PKG_RELEASE:=3
-=======
-PKG_RELEASE:=1
->>>>>>> d08eedd536 (ipq806x-nss)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/openwrt/rtl8168/releases/download/$(PKG_VERSION)
@@ -24,7 +20,6 @@ define KernelPackage/r8168
   TITLE:=Realtek RTL8168 PCI Gigabit Ethernet driver
   DEPENDS:=@PCI_SUPPORT +kmod-libphy
   FILES:=$(PKG_BUILD_DIR)/src/r8168.ko
-<<<<<<< HEAD
   AUTOLOAD:=$(call AutoProbe,r8168,1)
   PROVIDES:=kmod-r8169
   VARIANT:=regular
@@ -43,12 +38,6 @@ ifeq ($(BUILD_VARIANT),rss)
     ENABLE_RSS_SUPPORT=y
 endif
 
-=======
-  AUTOLOAD:=$(call AutoProbe,r8168)
-  PROVIDES:=kmod-r8169
-endef
-
->>>>>>> d08eedd536 (ipq806x-nss)
 define Build/Compile
 	+$(KERNEL_MAKE) $(PKG_JOBS) \
 		M="$(PKG_BUILD_DIR)/src" \
@@ -56,7 +45,4 @@ define Build/Compile
 endef
 
 $(eval $(call KernelPackage,r8168))
-<<<<<<< HEAD
 $(eval $(call KernelPackage,r8168-rss))
-=======
->>>>>>> d08eedd536 (ipq806x-nss)

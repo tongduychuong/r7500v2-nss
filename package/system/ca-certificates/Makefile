@@ -7,11 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ca-certificates
-<<<<<<< HEAD
 PKG_VERSION:=20241223
-=======
-PKG_VERSION:=20230311
->>>>>>> d08eedd536 (ipq806x-nss)
 PKG_RELEASE:=1
 PKG_MAINTAINER:=
 
@@ -20,11 +16,7 @@ PKG_LICENSE_FILES:=debian/copyright
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@DEBIAN/pool/main/c/ca-certificates
-<<<<<<< HEAD
 PKG_HASH:=dd8286d0a9dd35c756fea5f1df3fed1510fb891f376903891b003cd9b1ad7e03
-=======
-PKG_HASH:=83de934afa186e279d1ed08ea0d73f5cf43a6fbfb5f00874b6db3711c64576f3
->>>>>>> d08eedd536 (ipq806x-nss)
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk

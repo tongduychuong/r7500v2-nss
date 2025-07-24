@@ -16,11 +16,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
 --- a/drivers/clk/bcm/clk-raspberrypi.c
 +++ b/drivers/clk/bcm/clk-raspberrypi.c
-<<<<<<< HEAD
 @@ -283,6 +283,7 @@ static int raspberrypi_discover_clocks(s
-=======
-@@ -281,6 +281,7 @@ static int raspberrypi_discover_clocks(s
->>>>>>> d08eedd536 (ipq806x-nss)
  		case RPI_FIRMWARE_HEVC_CLK_ID:
  		case RPI_FIRMWARE_PIXEL_BVB_CLK_ID:
  		case RPI_FIRMWARE_VEC_CLK_ID:

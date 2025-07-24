@@ -98,11 +98,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  static int ov7251_regulators_enable(struct ov7251 *ov7251)
  {
  	int ret;
-<<<<<<< HEAD
 @@ -791,13 +790,13 @@ static int ov7251_enum_frame_ival(struct
-=======
-@@ -789,13 +788,13 @@ static int ov7251_enum_frame_ival(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  	unsigned int index = fie->index;
  	unsigned int i;
  
@@ -120,11 +116,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  			return 0;
  		}
  	}
-<<<<<<< HEAD
 @@ -856,23 +855,18 @@ static inline u32 avg_fps(const struct v
-=======
-@@ -854,23 +853,18 @@ static inline u32 avg_fps(const struct v
->>>>>>> d08eedd536 (ipq806x-nss)
  	return (t->denominator + (t->numerator >> 1)) / t->numerator;
  }
  
@@ -152,11 +144,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  
  		dist = abs(fps_req - fps_tmp);
  
-<<<<<<< HEAD
 @@ -882,7 +876,7 @@ ov7251_find_mode_by_ival(struct ov7251 *
-=======
-@@ -880,7 +874,7 @@ ov7251_find_mode_by_ival(struct ov7251 *
->>>>>>> d08eedd536 (ipq806x-nss)
  		}
  	}
  
@@ -165,11 +153,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  }
  
  static int ov7251_set_format(struct v4l2_subdev *sd,
-<<<<<<< HEAD
 @@ -916,7 +910,8 @@ static int ov7251_set_format(struct v4l2
-=======
-@@ -914,7 +908,8 @@ static int ov7251_set_format(struct v4l2
->>>>>>> d08eedd536 (ipq806x-nss)
  		__v4l2_ctrl_s_ctrl(ov7251->hblank, h_blank);
  
  		ret = __v4l2_ctrl_modify_range(ov7251->exposure, 1,
@@ -179,11 +163,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  					       1, new_mode->exposure_def);
  		if (ret < 0)
  			goto exit;
-<<<<<<< HEAD
 @@ -1038,11 +1033,11 @@ static int ov7251_s_stream(struct v4l2_s
-=======
-@@ -1036,11 +1031,11 @@ static int ov7251_s_stream(struct v4l2_s
->>>>>>> d08eedd536 (ipq806x-nss)
  			goto err_power_down;
  		}
  		ret = ov7251_write_reg(ov7251, OV7251_VTS_HIGH,
@@ -197,11 +177,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  		if (ret)
  			goto err_power_down;
  		ret = __v4l2_ctrl_handler_setup(&ov7251->ctrls);
-<<<<<<< HEAD
 @@ -1075,7 +1070,7 @@ static int ov7251_get_frame_interval(str
-=======
-@@ -1073,7 +1068,7 @@ static int ov7251_get_frame_interval(str
->>>>>>> d08eedd536 (ipq806x-nss)
  	struct ov7251 *ov7251 = to_ov7251(subdev);
  
  	mutex_lock(&ov7251->lock);
@@ -210,11 +186,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  	mutex_unlock(&ov7251->lock);
  
  	return 0;
-<<<<<<< HEAD
 @@ -1085,28 +1080,29 @@ static int ov7251_set_frame_interval(str
-=======
-@@ -1083,28 +1078,29 @@ static int ov7251_set_frame_interval(str
->>>>>>> d08eedd536 (ipq806x-nss)
  				     struct v4l2_subdev_frame_interval *fi)
  {
  	struct ov7251 *ov7251 = to_ov7251(subdev);
@@ -252,11 +224,7 @@ Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
  
  exit:
  	mutex_unlock(&ov7251->lock);
-<<<<<<< HEAD
 @@ -1318,6 +1314,7 @@ static int ov7251_probe(struct i2c_clien
-=======
-@@ -1316,6 +1312,7 @@ static int ov7251_probe(struct i2c_clien
->>>>>>> d08eedd536 (ipq806x-nss)
  	mutex_init(&ov7251->lock);
  
  	ov7251->current_mode = &ov7251_mode_info_data[0];

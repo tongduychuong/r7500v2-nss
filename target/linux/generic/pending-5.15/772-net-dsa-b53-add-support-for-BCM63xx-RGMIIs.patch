@@ -95,11 +95,7 @@ Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
 --- a/drivers/net/dsa/b53/b53_common.c
 +++ b/drivers/net/dsa/b53/b53_common.c
-<<<<<<< HEAD
 @@ -1225,6 +1225,46 @@ static void b53_force_port_config(struct
-=======
-@@ -1213,6 +1213,46 @@ static void b53_force_port_config(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  	b53_write8(dev, B53_CTRL_PAGE, off, reg);
  }
  
@@ -146,11 +142,7 @@ Reviewed-by: Andrew Lunn <andrew@lunn.ch>
  static void b53_adjust_link(struct dsa_switch *ds, int port,
  			    struct phy_device *phydev)
  {
-<<<<<<< HEAD
 @@ -1251,6 +1291,9 @@ static void b53_adjust_link(struct dsa_s
-=======
-@@ -1239,6 +1279,9 @@ static void b53_adjust_link(struct dsa_s
->>>>>>> d08eedd536 (ipq806x-nss)
  			      tx_pause, rx_pause);
  	b53_force_link(dev, port, phydev->link);
  
@@ -160,11 +152,7 @@ Reviewed-by: Andrew Lunn <andrew@lunn.ch>
  	if (is531x5(dev) && phy_interface_is_rgmii(phydev)) {
  		if (port == dev->imp_port)
  			off = B53_RGMII_CTRL_IMP;
-<<<<<<< HEAD
 @@ -1435,6 +1478,9 @@ void b53_phylink_mac_link_up(struct dsa_
-=======
-@@ -1423,6 +1466,9 @@ void b53_phylink_mac_link_up(struct dsa_
->>>>>>> d08eedd536 (ipq806x-nss)
  {
  	struct b53_device *dev = ds->priv;
  

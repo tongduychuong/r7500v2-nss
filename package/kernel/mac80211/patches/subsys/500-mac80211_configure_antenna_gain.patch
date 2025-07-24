@@ -1,10 +1,6 @@
 --- a/include/net/cfg80211.h
 +++ b/include/net/cfg80211.h
-<<<<<<< HEAD
 @@ -4095,6 +4095,7 @@ struct mgmt_frame_regs {
-=======
-@@ -4097,6 +4097,7 @@ struct mgmt_frame_regs {
->>>>>>> d08eedd536 (ipq806x-nss)
   *	(as advertised by the nl80211 feature flag.)
   * @get_tx_power: store the current TX power into the dbm variable;
   *	return 0 if successful
@@ -12,11 +8,7 @@
   *
   * @rfkill_poll: polls the hw rfkill line, use cfg80211 reporting
   *	functions to adjust rfkill hw state
-<<<<<<< HEAD
 @@ -4445,6 +4446,7 @@ struct cfg80211_ops {
-=======
-@@ -4447,6 +4448,7 @@ struct cfg80211_ops {
->>>>>>> d08eedd536 (ipq806x-nss)
  				enum nl80211_tx_power_setting type, int mbm);
  	int	(*get_tx_power)(struct wiphy *wiphy, struct wireless_dev *wdev,
  				int *dbm);
@@ -26,11 +18,7 @@
  
 --- a/include/net/mac80211.h
 +++ b/include/net/mac80211.h
-<<<<<<< HEAD
 @@ -1715,6 +1715,7 @@ enum ieee80211_smps_mode {
-=======
-@@ -1714,6 +1714,7 @@ enum ieee80211_smps_mode {
->>>>>>> d08eedd536 (ipq806x-nss)
   *
   * @power_level: requested transmit power (in dBm), backward compatibility
   *	value only that is set to the minimum of all interfaces
@@ -38,11 +26,7 @@
   *
   * @chandef: the channel definition to tune to
   * @radar_enabled: whether radar detection is enabled
-<<<<<<< HEAD
 @@ -1735,6 +1736,7 @@ enum ieee80211_smps_mode {
-=======
-@@ -1734,6 +1735,7 @@ enum ieee80211_smps_mode {
->>>>>>> d08eedd536 (ipq806x-nss)
  struct ieee80211_conf {
  	u32 flags;
  	int power_level, dynamic_ps_timeout;
@@ -72,11 +56,7 @@
  	__NL80211_ATTR_AFTER_LAST,
 --- a/net/mac80211/cfg.c
 +++ b/net/mac80211/cfg.c
-<<<<<<< HEAD
 @@ -3081,6 +3081,19 @@ static int ieee80211_get_tx_power(struct
-=======
-@@ -3079,6 +3079,19 @@ static int ieee80211_get_tx_power(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  	return 0;
  }
  
@@ -96,11 +76,7 @@
  static void ieee80211_rfkill_poll(struct wiphy *wiphy)
  {
  	struct ieee80211_local *local = wiphy_priv(wiphy);
-<<<<<<< HEAD
 @@ -5011,6 +5024,7 @@ const struct cfg80211_ops mac80211_confi
-=======
-@@ -5009,6 +5022,7 @@ const struct cfg80211_ops mac80211_confi
->>>>>>> d08eedd536 (ipq806x-nss)
  	.set_wiphy_params = ieee80211_set_wiphy_params,
  	.set_tx_power = ieee80211_set_tx_power,
  	.get_tx_power = ieee80211_get_tx_power,
@@ -129,11 +105,7 @@
  	u32 offchannel_flag;
  
  	offchannel_flag = local->hw.conf.flags & IEEE80211_CONF_OFFCHANNEL;
-<<<<<<< HEAD
 @@ -159,6 +159,12 @@ static u32 ieee80211_hw_conf_chan(struct
-=======
-@@ -157,6 +157,12 @@ static u32 ieee80211_hw_conf_chan(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  	}
  	rcu_read_unlock();
  
@@ -146,11 +118,7 @@
  	if (local->hw.conf.power_level != power) {
  		changed |= IEEE80211_CONF_CHANGE_POWER;
  		local->hw.conf.power_level = power;
-<<<<<<< HEAD
 @@ -768,6 +774,7 @@ struct ieee80211_hw *ieee80211_alloc_hw_
-=======
-@@ -766,6 +772,7 @@ struct ieee80211_hw *ieee80211_alloc_hw_
->>>>>>> d08eedd536 (ipq806x-nss)
  					 IEEE80211_RADIOTAP_MCS_HAVE_BW;
  	local->hw.radiotap_vht_details = IEEE80211_RADIOTAP_VHT_KNOWN_GI |
  					 IEEE80211_RADIOTAP_VHT_KNOWN_BANDWIDTH;

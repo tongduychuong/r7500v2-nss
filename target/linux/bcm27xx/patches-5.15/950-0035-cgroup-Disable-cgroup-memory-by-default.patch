@@ -17,11 +17,7 @@ Signed-off-by: Phil Elwell <phil@raspberrypi.org>
 
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
-<<<<<<< HEAD
 @@ -5889,6 +5889,9 @@ int __init cgroup_init_early(void)
-=======
-@@ -5893,6 +5893,9 @@ int __init cgroup_init_early(void)
->>>>>>> d08eedd536 (ipq806x-nss)
  	return 0;
  }
  
@@ -31,11 +27,7 @@ Signed-off-by: Phil Elwell <phil@raspberrypi.org>
  /**
   * cgroup_init - cgroup initialization
   *
-<<<<<<< HEAD
 @@ -5927,6 +5930,12 @@ int __init cgroup_init(void)
-=======
-@@ -5931,6 +5934,12 @@ int __init cgroup_init(void)
->>>>>>> d08eedd536 (ipq806x-nss)
  
  	mutex_unlock(&cgroup_mutex);
  
@@ -48,11 +40,7 @@ Signed-off-by: Phil Elwell <phil@raspberrypi.org>
  	for_each_subsys(ss, ssid) {
  		if (ss->early_init) {
  			struct cgroup_subsys_state *css =
-<<<<<<< HEAD
 @@ -6527,6 +6536,10 @@ static int __init cgroup_disable(char *s
-=======
-@@ -6523,6 +6532,10 @@ static int __init cgroup_disable(char *s
->>>>>>> d08eedd536 (ipq806x-nss)
  			    strcmp(token, ss->legacy_name))
  				continue;
  
@@ -63,11 +51,7 @@ Signed-off-by: Phil Elwell <phil@raspberrypi.org>
  			static_branch_disable(cgroup_subsys_enabled_key[i]);
  			pr_info("Disabling %s control group subsystem\n",
  				ss->name);
-<<<<<<< HEAD
 @@ -6545,6 +6558,31 @@ static int __init cgroup_disable(char *s
-=======
-@@ -6541,6 +6554,31 @@ static int __init cgroup_disable(char *s
->>>>>>> d08eedd536 (ipq806x-nss)
  }
  __setup("cgroup_disable=", cgroup_disable);
  

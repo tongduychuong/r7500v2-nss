@@ -31,11 +31,7 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  	{
  		.hw_rev = ATH11K_HW_IPQ8074,
  		.name = "ipq8074 hw2.0",
-<<<<<<< HEAD
 @@ -2047,7 +2047,8 @@ static void ath11k_core_reset(struct wor
-=======
-@@ -2040,7 +2040,8 @@ static void ath11k_core_reset(struct wor
->>>>>>> d08eedd536 (ipq806x-nss)
  static int ath11k_init_hw_params(struct ath11k_base *ab)
  {
  	const struct ath11k_hw_params *hw_params = NULL;
@@ -45,11 +41,7 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  
  	for (i = 0; i < ARRAY_SIZE(ath11k_hw_params); i++) {
  		hw_params = &ath11k_hw_params[i];
-<<<<<<< HEAD
 @@ -2063,7 +2064,31 @@ static int ath11k_init_hw_params(struct
-=======
-@@ -2056,7 +2057,31 @@ static int ath11k_init_hw_params(struct
->>>>>>> d08eedd536 (ipq806x-nss)
  
  	ab->hw_params = *hw_params;
  

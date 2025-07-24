@@ -26,11 +26,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  		return -ENODEV;
  
  	/* Name & Type */
-<<<<<<< HEAD
 @@ -373,7 +373,7 @@ int of_device_uevent_modalias(struct dev
-=======
-@@ -372,7 +372,7 @@ int of_device_uevent_modalias(struct dev
->>>>>>> d08eedd536 (ipq806x-nss)
  {
  	int sl;
  

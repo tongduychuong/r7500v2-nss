@@ -380,11 +380,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  {
  	struct nvmem_device *nvmem = cell->nvmem;
  	int rc;
-<<<<<<< HEAD
 @@ -1530,6 +1560,21 @@ int nvmem_cell_write(struct nvmem_cell *
-=======
-@@ -1528,6 +1558,21 @@ int nvmem_cell_write(struct nvmem_cell *
->>>>>>> d08eedd536 (ipq806x-nss)
  
  	return len;
  }
@@ -406,11 +402,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  EXPORT_SYMBOL_GPL(nvmem_cell_write);
  
  static int nvmem_cell_read_common(struct device *dev, const char *cell_id,
-<<<<<<< HEAD
 @@ -1632,7 +1677,7 @@ static const void *nvmem_cell_read_varia
-=======
-@@ -1630,7 +1675,7 @@ static const void *nvmem_cell_read_varia
->>>>>>> d08eedd536 (ipq806x-nss)
  	if (IS_ERR(cell))
  		return cell;
  
@@ -419,11 +411,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	buf = nvmem_cell_read(cell, len);
  	nvmem_cell_put(cell);
  	if (IS_ERR(buf))
-<<<<<<< HEAD
 @@ -1728,18 +1773,18 @@ EXPORT_SYMBOL_GPL(nvmem_cell_read_variab
-=======
-@@ -1726,18 +1771,18 @@ EXPORT_SYMBOL_GPL(nvmem_cell_read_variab
->>>>>>> d08eedd536 (ipq806x-nss)
  ssize_t nvmem_device_cell_read(struct nvmem_device *nvmem,
  			   struct nvmem_cell_info *info, void *buf)
  {
@@ -445,11 +433,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	if (rc)
  		return rc;
  
-<<<<<<< HEAD
 @@ -1759,17 +1804,17 @@ EXPORT_SYMBOL_GPL(nvmem_device_cell_read
-=======
-@@ -1757,17 +1802,17 @@ EXPORT_SYMBOL_GPL(nvmem_device_cell_read
->>>>>>> d08eedd536 (ipq806x-nss)
  int nvmem_device_cell_write(struct nvmem_device *nvmem,
  			    struct nvmem_cell_info *info, void *buf)
  {

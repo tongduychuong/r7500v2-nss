@@ -116,11 +116,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	help
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-<<<<<<< HEAD
 @@ -3632,6 +3632,11 @@ static int xmit_one(struct sk_buff *skb,
-=======
-@@ -3600,6 +3600,11 @@ static int xmit_one(struct sk_buff *skb,
->>>>>>> d08eedd536 (ipq806x-nss)
  	if (dev_nit_active(dev))
  		dev_queue_xmit_nit(skb, dev);
  

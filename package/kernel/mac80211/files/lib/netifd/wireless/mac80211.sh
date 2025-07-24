@@ -138,11 +138,7 @@ mac80211_hostapd_setup_base() {
 	[ -n "$acs_exclude_dfs" ] && [ "$acs_exclude_dfs" -gt 0 ] &&
 		append base_cfg "acs_exclude_dfs=1" "$N"
 
-<<<<<<< HEAD
-	json_get_vars noscan ht_coex min_tx_power:0 tx_burst
-=======
 	json_get_vars noscan ht_coex vendor_vht min_tx_power:0 tx_burst
->>>>>>> d08eedd536 (ipq806x-nss)
 	json_get_values ht_capab_list ht_capab
 	json_get_values channel_list channels
 
@@ -296,11 +292,7 @@ mac80211_hostapd_setup_base() {
 	}
 	[ "$hwmode" = "a" ] || enable_ac=0
 
-<<<<<<< HEAD
-	if [ "$enable_ac" != "0" ]; then
-=======
 	if [ "$enable_ac" != "0" -o "$vendor_vht" = "1" ]; then
->>>>>>> d08eedd536 (ipq806x-nss)
 		json_get_vars \
 			rxldpc:1 \
 			short_gi_80:1 \

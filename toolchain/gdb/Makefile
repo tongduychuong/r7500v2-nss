@@ -53,11 +53,8 @@ else
   HOST_CONFIGURE_ARGS+= --without-python
 endif
 
-<<<<<<< HEAD
 HOST_CFLAGS += -std=gnu17
 
-=======
->>>>>>> d08eedd536 (ipq806x-nss)
 define Host/Install
 	mkdir -p $(TOOLCHAIN_DIR)/bin
 	$(INSTALL_BIN) $(HOST_BUILD_DIR)/gdb/gdb $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb

@@ -1,10 +1,6 @@
 --- a/drivers/net/wireless/ath/ath9k/init.c
 +++ b/drivers/net/wireless/ath/ath9k/init.c
-<<<<<<< HEAD
 @@ -698,6 +698,12 @@ static int ath9k_of_init(struct ath_soft
-=======
-@@ -696,6 +696,12 @@ static int ath9k_of_init(struct ath_soft
->>>>>>> d08eedd536 (ipq806x-nss)
  	return 0;
  }
  
@@ -17,11 +13,7 @@
  static int ath9k_init_softc(u16 devid, struct ath_softc *sc,
  			    const struct ath_bus_ops *bus_ops)
  {
-<<<<<<< HEAD
 @@ -805,6 +811,9 @@ static int ath9k_init_softc(u16 devid, s
-=======
-@@ -803,6 +809,9 @@ static int ath9k_init_softc(u16 devid, s
->>>>>>> d08eedd536 (ipq806x-nss)
  	if (ret)
  		goto err_hw;
  

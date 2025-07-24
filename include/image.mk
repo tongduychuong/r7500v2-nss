@@ -487,7 +487,6 @@ endef
 
 define Device/Check/Common
   _PROFILE_SET = $$(strip $$(foreach profile,$$(PROFILES) DEVICE_$(1),$$(call DEVICE_CHECK_PROFILE,$$(profile))))
-<<<<<<< HEAD
   # Check if device is disabled and if so do not mark to be installed when ImageBuilder is used
   ifeq ($(IB),1)
     ifeq ($$(DEFAULT),n)
@@ -497,8 +496,6 @@ define Device/Check/Common
       _PROFILE_SET :=
     endif
   endif
-=======
->>>>>>> d08eedd536 (ipq806x-nss)
   DEVICE_PACKAGES += $$(call extra_packages,$$(DEVICE_PACKAGES))
   ifdef TARGET_PER_DEVICE_ROOTFS
     $$(eval $$(call merge_packages,_PACKAGES,$$(DEVICE_PACKAGES) $$(call DEVICE_EXTRA_PACKAGES,$(1))))

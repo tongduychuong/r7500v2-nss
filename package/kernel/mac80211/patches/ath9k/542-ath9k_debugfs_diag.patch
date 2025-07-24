@@ -51,11 +51,7 @@
  int ath9k_init_debug(struct ath_hw *ah)
  {
  	struct ath_common *common = ath9k_hw_common(ah);
-<<<<<<< HEAD
 @@ -1587,6 +1631,8 @@ int ath9k_init_debug(struct ath_hw *ah)
-=======
-@@ -1589,6 +1633,8 @@ int ath9k_init_debug(struct ath_hw *ah)
->>>>>>> d08eedd536 (ipq806x-nss)
  	debugfs_create_file("gpio_led", S_IWUSR,
  			   sc->debug.debugfs_phy, sc, &fops_gpio_led);
  #endif

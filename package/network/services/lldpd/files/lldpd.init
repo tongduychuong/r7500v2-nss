@@ -75,15 +75,9 @@ get_config_restart_hash() {
 	export -n "$var=$_hash"
 }
 
-<<<<<<< HEAD
 get_interface_csv() {
 	local _ifaces
 	config_get _ifaces "$2" "$3"
-=======
-get_config_cid_ifaces() {
-	local _ifaces
-	config_get _ifaces 'config' "$2"
->>>>>>> d08eedd536 (ipq806x-nss)
 
 	local _iface _ifnames=""
 	# Set noglob to prevent '*' capturing diverse file names in the for ... in
@@ -104,7 +98,6 @@ get_config_cid_ifaces() {
 	export -n "${1}=$_ifnames"
 }
 
-<<<<<<< HEAD
 add_custom_tlv_callback()
 {
 	# syntax: configure [ports ethX[,…]] lldp custom-tlv [add|replace] oui XX,XX,XX subtype XX oui-info XX[,XX,...]
@@ -120,8 +113,6 @@ add_custom_tlv_callback()
 	echo "configure ${_ports:+ports $_ports }lldp custom-tlv $_tlv" >> "$LLDPD_CONF"
 }
 
-=======
->>>>>>> d08eedd536 (ipq806x-nss)
 write_lldpd_conf()
 {
 	local lldp_description
@@ -133,11 +124,7 @@ write_lldpd_conf()
 	config_get lldp_hostname 'config' 'lldp_hostname' "$(cat /proc/sys/kernel/hostname)"
 
 	local ifnames
-<<<<<<< HEAD
 	get_interface_csv ifnames 'config' "interface"
-=======
-	get_config_cid_ifaces ifnames "interface"
->>>>>>> d08eedd536 (ipq806x-nss)
 
 	local lldp_mgmt_ip
 	config_get lldp_mgmt_ip 'config' 'lldp_mgmt_ip'
@@ -225,12 +212,9 @@ write_lldpd_conf()
 	[ "$lldp_mgmt_addr_advertisements" -gt 0 ] && echo "configure lldp management-addresses-advertisements" >> "$LLDPD_CONF" ||\
 		echo "unconfigure lldp management-addresses-advertisements" >> "$LLDPD_CONF"
 
-<<<<<<< HEAD
 	# Custom TLV handling
 	config_foreach add_custom_tlv_callback 'custom-tlv'
 
-=======
->>>>>>> d08eedd536 (ipq806x-nss)
 	# Since lldpd's sysconfdir is /tmp, we'll symlink /etc/lldpd.d to /tmp/$LLDPD_CONFS_DIR
 	[ -e "$LLDPD_CONFS_DIR" ] || ln -s /etc/lldpd.d "$LLDPD_CONFS_DIR"
 }
@@ -369,11 +353,7 @@ start_service() {
 
     # ChassisID interfaces
 	local ifnames
-<<<<<<< HEAD
 	get_interface_csv ifnames 'config' "cid_interface"
-=======
-	get_config_cid_ifaces ifnames "cid_interface"
->>>>>>> d08eedd536 (ipq806x-nss)
 
 	[ -n "$ifnames" ] && procd_append_param command -C "$ifnames"
 
