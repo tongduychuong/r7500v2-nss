@@ -49,14 +49,19 @@ rostelecom,rt-sf-1)
 	;;
 beeline,smartbox-pro|\
 wifire,s1500-nbn)
-	ucidef_set_led_netdev "lan1" "lan1" "green:lan1" "lan1" "link tx rx"
-	ucidef_set_led_netdev "lan2" "lan2" "green:lan2" "lan2" "link tx rx"
-	ucidef_set_led_netdev "lan3" "lan3" "green:lan3" "lan3" "link tx rx"
-	ucidef_set_led_netdev "lan4" "lan4" "green:lan4" "lan4" "link tx rx"
+	ucidef_set_led_netdev "lan1" "lan1" "green:lan-1" "lan1" "link tx rx"
+	ucidef_set_led_netdev "lan2" "lan2" "green:lan-2" "lan2" "link tx rx"
+	ucidef_set_led_netdev "lan3" "lan3" "green:lan-3" "lan3" "link tx rx"
+	ucidef_set_led_netdev "lan4" "lan4" "green:lan-4" "lan4" "link tx rx"
 	ucidef_set_led_netdev "wan"  "wan"  "green:wan"  "wan"  "link tx rx"
 	;;
 belkin,rt1800)
 	ucidef_set_led_netdev "wan" "wan" "white:wan" "wan"
+	;;
+confiabits,mt7621-v1|\
+genexis,pulse-ex400|\
+netis,n6)
+	ucidef_set_led_netdev "wan" "wan" "green:wan" "wan" "link tx rx"
 	;;
 cudy,wr2100)
 	ucidef_set_led_netdev "lan1" "lan1" "green:lan1" "lan1"
@@ -76,7 +81,8 @@ jcg,y2|\
 xzwifi,creativebox-v1)
 	ucidef_set_led_netdev "internet" "internet" "blue:internet" "wan"
 	;;
-dlink,dap-1620-b1)
+dlink,dap-1620-b1|\
+dlink,dra-1360-a1)
 	ucidef_set_rssimon "wlan1" "200000" "1"
 	ucidef_set_led_rssi "rssilow" "RSSILOW" "red:rssilow" "wlan1" "1" "40"
 	ucidef_set_led_rssi "rssimediumlow" "RSSIMEDIUMLOW" "green:rssilow" "wlan1" "21" "100"
@@ -91,13 +97,17 @@ dlink,dap-x1860-a1)
 	ucidef_set_led_rssi "rssihigh" "RSSIHIGH" "green:rssihigh" "wlan1" "76" "100"
 	;;
 dlink,dir-1960-a1|\
+dlink,dir-2055-a1|\
+dlink,dir-2150-a1|\
+dlink,dir-2150-r1|\
 dlink,dir-2640-a1|\
 dlink,dir-2660-a1)
-	ucidef_set_led_netdev "wan" "wan" "white:net" "wan"
+	ucidef_set_led_netdev "wan" "wan" "white:wan" "wan"
 	;;
+dlink,dir-3040-a1|\
 dlink,dir-3060-a1)
-	ucidef_set_led_netdev "net_white" "WAN Link" "white:net" "wan" "link"
-	ucidef_set_led_netdev "net_orange" "WAN Activity" "orange:net" "wan" "tx rx"
+	ucidef_set_led_netdev "net_white" "WAN Link" "white:wan" "wan" "link"
+	ucidef_set_led_netdev "net_orange" "WAN Activity" "orange:wan" "wan" "tx rx"
 	;;
 dlink,dir-853-a1|\
 dlink,dir-853-a3)
@@ -183,9 +193,6 @@ netgear,r7450)
 netgear,wax202)
 	ucidef_set_led_netdev "internet" "Internet" "green:net" "wan"
 	;;
-netis,n6)
-	ucidef_set_led_netdev "wan" "wan" "green:wan" "wan" "link tx rx"
-	;;
 oraybox,x3a)
 	ucidef_set_led_netdev "wan" "wan link" "red:status" "wan"
 	ucidef_set_led_netdev "lan" "lan link" "green:status" "br-lan"
@@ -205,9 +212,9 @@ tplink,deco-m4r-v4)
 	ucidef_set_led_netdev "lan" "LAN" "green:lan" "br-lan"
 	;;
 tplink,ec330-g5u-v1)
-	ucidef_set_led_netdev "lan" "Ethernet" "blue:ethernet" "br-lan" "link tx rx"
-	ucidef_set_led_netdev "wan" "Internet" "blue:internet" "wan" "link tx rx"
-	ucidef_set_led_netdev "wan-off" "Internet-off" "amber:internet" "wan" "link"
+	ucidef_set_led_netdev "lan" "Ethernet" "blue:lan" "br-lan" "link tx rx"
+	ucidef_set_led_netdev "wan" "Internet" "blue:wan" "wan" "link tx rx"
+	ucidef_set_led_netdev "wan-off" "Internet-off" "amber:wan" "wan" "link"
 	;;
 tplink,re350-v1)
 	ucidef_set_led_netdev "wifi2g" "Wifi 2.4G" "blue:wifi2G" "wlan0"
@@ -260,6 +267,9 @@ z-router,zr-2660)
 	;;
 zyxel,lte3301-plus)
 	ucidef_set_led_netdev "internet" "internet" "white:internet" "wwan0"
+	;;
+zyxel,lte5398-m904)
+	ucidef_set_led_netdev "internet" "LTE/3G Internet Activity" "green:internet" "wwan0" "rx tx"
 	;;
 esac
 

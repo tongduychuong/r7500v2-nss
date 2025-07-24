@@ -88,6 +88,12 @@ define Build/luxul-lxl
 	mv $@.new $@
 endef
 
+# Outputs a lzma compressed U-Boot that start at 0x00008000
+# just like the D-Link boot loaders expect
+define Build/dlink-uboot-bin
+	$(STAGING_DIR_HOST)/bin/lzma e $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-u-boot.bin -d16 $@
+endef
+
 define Build/seama-nand
 	# Seama entity
 	$(STAGING_DIR_HOST)/bin/oseama \
@@ -120,6 +126,8 @@ define Build/dwl8610ap-image
 	rm -rf $@.tmptar
 	mv $@.new $@
 endef
+
+DTS_DIR := $(DTS_DIR)/broadcom
 
 DEVICE_VARS += ASUS_PRODUCTID
 DEVICE_VARS += BUFFALO_TAG_PLATFORM BUFFALO_TAG_VERSION BUFFALO_TAG_MINOR
@@ -275,6 +283,21 @@ define Device/dlink_dir-885l
 endef
 TARGET_DEVICES += dlink_dir-885l
 
+define Device/dlink_dir-890l
+  DEVICE_VENDOR := D-Link
+  DEVICE_MODEL := DIR-890L
+  DEVICE_PACKAGES := $(BRCMFMAC_43602A1) $(USB2_PACKAGES) $(USB3_PACKAGES)
+  # Layout: U-boot (128kb max) followed by kernel and appended DTB.
+  # This is done because the boot loader will only read the first 2 MB
+  # from the flash and decompress the LZMA it finds there after the
+  # SEAMA header. Since the compressed kernel will not fit in 2 MB,
+  # we put U-Boot there and let U-Boot read and execute the kernel.
+  KERNEL := dlink-uboot-bin | pad-to 128k | append-kernel | append-dtb
+  $(Device/dlink)
+  SIGNATURE := wrgac36_dlink.2013gui_dir890
+endef
+TARGET_DEVICES += dlink_dir-890l
+
 define Device/dlink_dwl-8610ap
   DEVICE_VENDOR := D-Link
   DEVICE_MODEL := DWL-8610AP
@@ -359,8 +382,7 @@ TARGET_DEVICES += luxul_xwr-3150
 define Device/meraki_mr26
   DEVICE_VENDOR := Meraki
   DEVICE_MODEL := MR26
-  DEVICE_PACKAGES := $(B43) kmod-i2c-bcm-iproc kmod-eeprom-at24 \
-	kmod-hwmon-ina2xx kmod-leds-uleds nu801
+  DEVICE_PACKAGES := $(B43) kmod-hwmon-ina2xx kmod-leds-uleds nu801
   DEVICE_DTS := bcm53015-meraki-mr26
 # resize the initramfs to fit the size of the existing part.safe.
   KERNEL_LOADADDR := 0x00008000
@@ -376,8 +398,7 @@ TARGET_DEVICES += meraki_mr26
 define Device/meraki_mr32
   DEVICE_VENDOR := Meraki
   DEVICE_MODEL := MR32
-  DEVICE_PACKAGES := $(B43) kmod-i2c-bcm-iproc kmod-eeprom-at24 \
-	kmod-leds-pwm kmod-hwmon-ina2xx kmod-bluetooth
+  DEVICE_PACKAGES := $(B43) kmod-leds-pwm kmod-hwmon-ina2xx kmod-bluetooth
   DEVICE_DTS := bcm53016-meraki-mr32
 # Meraki FW r23 tries to resize the part.safe partition before it will
 # flash the image. This is a bit of a problem, since resizing will fail
@@ -398,6 +419,43 @@ define Device/meraki_mr32
   DEVICE_FDT_NUM := 2
 endef
 TARGET_DEVICES += meraki_mr32
+
+define Device/meraki_mx6x
+  KERNEL_IN_UBI := 1
+  KERNEL_LOADADDR := 0x60008000
+  DEVICE_PACKAGES := -oseama kmod-leds-pwm kmod-usb-ehci \
+	kmod-usb-ohci kmod-usb2
+  DEVICE_VENDOR := Cisco Meraki
+  KERNEL = kernel-bin | gzip | fit gzip $$(DTS_DIR)/$$(DEVICE_DTS).dtb
+  KERNEL_INITRAMFS := kernel-bin | gzip | fit gzip $$(DTS_DIR)/$$(DEVICE_DTS).dtb
+  KERNEL_INITRAMFS_SUFFIX := .bin
+  IMAGES := sysupgrade.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+endef
+
+define Device/meraki_mx64
+  $(call Device/meraki_mx6x)
+  DEVICE_MODEL := MX64
+  DEVICE_DTS_CONFIG := config@4
+  DEVICE_DTS := bcm958625-meraki-mx64
+endef
+TARGET_DEVICES += meraki_mx64
+
+define Device/meraki_mx64_a0
+  $(call Device/meraki_mx64)
+  DEVICE_VARIANT := A0
+  DEVICE_DTS_CONFIG := config@2
+  DEVICE_DTS := bcm958625-meraki-mx64-a0
+endef
+TARGET_DEVICES += meraki_mx64_a0
+
+define Device/meraki_mx65
+  $(call Device/meraki_mx6x)
+  DEVICE_MODEL := MX65
+  DEVICE_DTS_CONFIG := config@3
+  DEVICE_DTS := bcm958625-meraki-mx65
+endef
+TARGET_DEVICES += meraki_mx65
 
 define Device/netgear
   DEVICE_VENDOR := NETGEAR

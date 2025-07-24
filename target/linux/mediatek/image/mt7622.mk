@@ -1,30 +1,11 @@
 DTS_DIR := $(DTS_DIR)/mediatek
 
+DEVICE_VARS += BUFFALO_TRX_MAGIC
+
 define Image/Prepare
 	# For UBI we want only one extra block
 	rm -f $(KDIR)/ubi_mark
 	echo -ne '\xde\xad\xc0\xde' > $(KDIR)/ubi_mark
-endef
-
-define Build/buffalo-trx
-	$(eval magic=$(word 1,$(1)))
-	$(eval kern_bin=$(if $(1),$(IMAGE_KERNEL),$@))
-	$(eval rtfs_bin=$(word 2,$(1)))
-	$(eval apnd_bin=$(word 3,$(1)))
-	$(eval kern_size=$(if $(KERNEL_SIZE),$(KERNEL_SIZE),0x400000))
-
-	$(if $(rtfs_bin),touch $(rtfs_bin))
-	$(STAGING_DIR_HOST)/bin/otrx create $@.new \
-		$(if $(magic),-M $(magic),) \
-		-f $(kern_bin) \
-		$(if $(rtfs_bin),\
-			-a 0x20000 \
-			-b $$(( $(subst k, * 1024,$(kern_size)) )) \
-			-f $(rtfs_bin),) \
-		$(if $(apnd_bin),\
-			-A $(apnd_bin) \
-			-a 0x20000)
-	mv $@.new $@
 endef
 
 define Build/bl2
@@ -71,6 +52,17 @@ define Build/mt7622-gpt
 	rm $@.tmp
 endef
 
+define Device/smartrg_sdg-841-t6
+  DEVICE_VENDOR := Adtran
+  DEVICE_DTS_DIR := ../dts
+  DEVICE_PACKAGES := e2fsprogs f2fsck mkf2fs
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  DEVICE_MODEL := SDG-841-t6
+  DEVICE_DTS := mt7622-smartrg-SDG-841-t6
+  DEVICE_PACKAGES += kmod-mt7915e kmod-mt7915-firmware
+endef
+TARGET_DEVICES += smartrg_sdg-841-t6
+
 define Device/bananapi_bpi-r64
   DEVICE_VENDOR := Bananapi
   DEVICE_MODEL := BPi-R64
@@ -84,7 +76,7 @@ define Device/bananapi_bpi-r64
   KERNEL_INITRAMFS_SUFFIX := -recovery.itb
   ARTIFACT/emmc-preloader.bin	:= bl2 emmc-2ddr
   ARTIFACT/emmc-bl31-uboot.fip	:= bl31-uboot bananapi_bpi-r64-emmc
-  ARTIFACT/snand-preloader.bin	:= bl2 snand-2ddr
+  ARTIFACT/snand-preloader.bin	:= bl2 snand-ubi-2ddr
   ARTIFACT/snand-bl31-uboot.fip	:= bl31-uboot bananapi_bpi-r64-snand
   ARTIFACT/sdcard.img.gz	:= mt7622-gpt sdmmc |\
 				   pad-to 512k | bl2 sdmmc-2ddr |\
@@ -95,7 +87,7 @@ define Device/bananapi_bpi-r64
 				   pad-to 38912k | mt7622-gpt emmc |\
 				   pad-to 39424k | bl2 emmc-2ddr |\
 				   pad-to 40960k | bl31-uboot bananapi_bpi-r64-emmc |\
-				   pad-to 43008k | bl2 snand-2ddr |\
+				   pad-to 43008k | bl2 snand-ubi-2ddr |\
 				   pad-to 43520k | bl31-uboot bananapi_bpi-r64-snand |\
 				$(if $(CONFIG_TARGET_ROOTFS_SQUASHFS), \
 				   pad-to 46080k | append-image squashfs-sysupgrade.itb | check-size |\
@@ -107,49 +99,13 @@ endif
   KERNEL			:= kernel-bin | gzip
   KERNEL_INITRAMFS		:= kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb with-initrd | pad-to 128k
   IMAGE/sysupgrade.itb		:= append-kernel | fit gzip $$(DTS_DIR)/$$(DEVICE_DTS).dtb external-static-with-rootfs | append-metadata
-  DEVICE_COMPAT_VERSION := 1.1
-  DEVICE_COMPAT_MESSAGE := Device tree overlay mechanism needs bootloader update
+  DEVICE_COMPAT_VERSION := 1.2
+  DEVICE_COMPAT_MESSAGE := SPI-NAND flash layout changes require bootloader update
 endef
 TARGET_DEVICES += bananapi_bpi-r64
 
-define Device/buffalo_wsr-2533dhp2
+define Device/buffalo_wsr
   DEVICE_VENDOR := Buffalo
-  DEVICE_MODEL := WSR-2533DHP2
-  DEVICE_DTS := mt7622-buffalo-wsr-2533dhp2
-  DEVICE_DTS_DIR := ../dts
-  IMAGE_SIZE := 59392k
-  KERNEL_SIZE := 4096k
-  BLOCKSIZE := 128k
-  PAGESIZE := 2048
-  SUBPAGESIZE := 512
-  UBINIZE_OPTS := -E 5
-  BUFFALO_TAG_PLATFORM := MTK
-  BUFFALO_TAG_VERSION := 9.99
-  BUFFALO_TAG_MINOR := 9.99
-  IMAGES += factory.bin factory-uboot.bin
-  KERNEL_INITRAMFS := kernel-bin | lzma | \
-	fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd | \
-	buffalo-trx
-  IMAGE/factory.bin := append-ubi | \
-	buffalo-trx 0x32504844 $$$$@ $(KDIR)/ubi_mark | \
-	buffalo-enc WSR-2533DHP2 $$(BUFFALO_TAG_VERSION) -l | \
-	buffalo-tag-dhp WSR-2533DHP2 JP JP | buffalo-enc-tag -l | buffalo-dhp-image
-  IMAGE/factory-uboot.bin := append-ubi | \
-	buffalo-trx 0x32504844 $$$$@ $(KDIR)/ubi_mark
-  IMAGE/sysupgrade.bin := \
-	buffalo-trx 0x32504844 $(KDIR)/tmp/$$(DEVICE_NAME).null | \
-	sysupgrade-tar kernel=$$$$@ | append-metadata
-  DEVICE_PACKAGES := kmod-mt7615-firmware swconfig
-endef
-TARGET_DEVICES += buffalo_wsr-2533dhp2
-
-define Device/buffalo_wsr-3200ax4s
-  DEVICE_VENDOR := Buffalo
-  DEVICE_MODEL := WSR-3200AX4S
-  DEVICE_DTS := mt7622-buffalo-wsr-3200ax4s
-  IMAGE_SIZE := 24576k
-  BUFFALO_TRX_MAGIC := 0x33504844
-  DEVICE_PACKAGES := kmod-mt7915-firmware
   DEVICE_DTS_DIR := ../dts
   KERNEL_SIZE := 6144k
   BLOCKSIZE := 128k
@@ -167,10 +123,34 @@ define Device/buffalo_wsr-3200ax4s
 	buffalo-enc $$(DEVICE_MODEL) $$(BUFFALO_TAG_VERSION) -l | \
 	buffalo-tag-dhp $$(DEVICE_MODEL) JP JP | buffalo-enc-tag -l | buffalo-dhp-image
   IMAGE/factory-uboot.bin := append-ubi | \
-	buffalo-trx $$$$(BUFFALO_TRX_MAGIC) $$$$@ $(KDIR)/ubi_mark
+	buffalo-trx $$$$(BUFFALO_TRX_MAGIC) $$$$@ $(KDIR)/ubi_mark | append-metadata
   IMAGE/sysupgrade.bin := \
 	buffalo-trx $$$$(BUFFALO_TRX_MAGIC) $(KDIR)/tmp/$$(DEVICE_NAME).null | \
 	sysupgrade-tar kernel=$$$$@ | append-metadata
+endef
+
+define Device/buffalo_wsr-2533dhp2
+  $(Device/buffalo_wsr)
+  DEVICE_MODEL := WSR-2533DHP2
+  DEVICE_DTS := mt7622-buffalo-wsr-2533dhp2
+  IMAGE_SIZE := 59392k
+  SUBPAGESIZE := 512
+  BUFFALO_TRX_MAGIC := 0x32504844
+  DEVICE_PACKAGES := kmod-mt7615-firmware swconfig
+  DEVICE_COMPAT_VERSION := 1.1
+  DEVICE_COMPAT_MESSAGE := Partition table has been changed due to kernel size restrictions. \
+	Please upgrade via sysupgrade with factory-uboot.bin image and '-F' option. \
+	(Warning: your configurations will be erased!)
+endef
+TARGET_DEVICES += buffalo_wsr-2533dhp2
+
+define Device/buffalo_wsr-3200ax4s
+  $(Device/buffalo_wsr)
+  DEVICE_MODEL := WSR-3200AX4S
+  DEVICE_DTS := mt7622-buffalo-wsr-3200ax4s
+  IMAGE_SIZE := 24576k
+  BUFFALO_TRX_MAGIC := 0x33504844
+  DEVICE_PACKAGES := kmod-mt7915-firmware
 endef
 TARGET_DEVICES += buffalo_wsr-3200ax4s
 
@@ -268,8 +248,10 @@ define Device/linksys_e8450-ubi
   IMAGES := sysupgrade.itb
   IMAGE/sysupgrade.itb := append-kernel | fit gzip $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb external-static-with-rootfs | append-metadata
   ARTIFACTS := preloader.bin bl31-uboot.fip
-  ARTIFACT/preloader.bin := bl2 snand-1ddr
+  ARTIFACT/preloader.bin := bl2 snand-ubi-1ddr
   ARTIFACT/bl31-uboot.fip := bl31-uboot linksys_e8450
+  DEVICE_COMPAT_VERSION := 2.0
+  DEVICE_COMPAT_MESSAGE := SPI-NAND flash layout changes require bootloader update. Please run the UBI installer version 1.1.0+ (unsigned) first.
 endef
 TARGET_DEVICES += linksys_e8450-ubi
 
@@ -291,7 +273,7 @@ define Device/mediatek_mt7622-rfb1-ubi
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
   PAGESIZE := 2048
-  KERNEL_SIZE := 4194304
+  KERNEL_SIZE := 6291456
   IMAGE_SIZE := 32768k
   IMAGES += factory.bin
   IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
@@ -350,7 +332,7 @@ define Device/totolink_a8000ru
   DEVICE_MODEL := A8000RU
   DEVICE_DTS := mt7622-totolink-a8000ru
   DEVICE_DTS_DIR := ../dts
-  DEVICE_PACKAGES := kmod-mt7615-firmware swconfig
+  DEVICE_PACKAGES := kmod-mt7615-firmware kmod-usb3 swconfig
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 TARGET_DEVICES += totolink_a8000ru
@@ -454,12 +436,20 @@ define Device/xiaomi_redmi-router-ax6s
   BOARD_NAME := xiaomi,redmi-router-ax6s
   DEVICE_PACKAGES := kmod-mt7915-firmware
   UBINIZE_OPTS := -E 5
-  IMAGES += factory.bin
   BLOCKSIZE := 128k
   PAGESIZE := 2048
-  KERNEL_SIZE := 4096k
+  KERNEL := kernel-bin | gzip
+  KERNEL_INITRAMFS := kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd | pad-to 64k
   KERNEL_INITRAMFS_SUFFIX := -recovery.itb
-  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGES := sysupgrade.itb
+  IMAGE/sysupgrade.itb := append-kernel | fit gzip $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb external-static-with-rootfs | append-metadata
+  ARTIFACTS := ubi-loader.itb
+  ARTIFACT/ubi-loader.itb := uboot-bin xiaomi_redmi-router-ax6s-ubi-loader | lzma | uboot-fit lzma
+ifneq ($(CONFIG_TARGET_ROOTFS_SQUASHFS),)
+  ARTIFACTS += factory.bin
+  ARTIFACT/factory.bin := uboot-bin xiaomi_redmi-router-ax6s-ubi-loader | lzma | uboot-fit lzma | pad-to 512k | ubinize-image fit squashfs-sysupgrade.itb
+endif
+  DEVICE_COMPAT_VERSION := 2.0
+  DEVICE_COMPAT_MESSAGE := Flash layout changes require a manual reinstall using factory.bin.
 endef
 TARGET_DEVICES += xiaomi_redmi-router-ax6s

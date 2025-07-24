@@ -17,16 +17,16 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
 --- a/net/mac80211/vht.c
 +++ b/net/mac80211/vht.c
-@@ -412,6 +412,12 @@ ieee80211_sta_cap_rx_bw(struct link_sta_
- 		goto out;
+@@ -442,6 +442,12 @@ ieee80211_sta_cap_chan_bw(struct link_st
+ 				NL80211_CHAN_WIDTH_40 : NL80211_CHAN_WIDTH_20;
  	}
  
 +	/* Skip checking VHT cap and set to 20MHz if HT cap doesn't indicate
 +	 * support for 40MHz.
 +	 */
 +	if (!(link_sta->pub->ht_cap.cap & IEEE80211_HT_CAP_SUP_WIDTH_20_40))
-+		return IEEE80211_STA_RX_BW_20;
++		return NL80211_CHAN_WIDTH_20;
 +
  	cap_width = vht_cap->cap & IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_MASK;
  
- 	if (cap_width == IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160MHZ ||
+ 	if (cap_width == IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160MHZ)

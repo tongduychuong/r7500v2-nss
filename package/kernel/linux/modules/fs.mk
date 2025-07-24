@@ -10,7 +10,7 @@ FS_MENU:=Filesystems
 define KernelPackage/fs-9p
   SUBMENU:=$(FS_MENU)
   TITLE:=Plan 9 Resource Sharing Support
-  DEPENDS:=+kmod-9pnet
+  DEPENDS:=+kmod-9pnet +kmod-fs-netfs
   KCONFIG:=\
 	CONFIG_9P_FS \
 	CONFIG_9P_FS_POSIX_ACL=n \
@@ -87,10 +87,12 @@ define KernelPackage/fs-smbfs-common
   SUBMENU:=$(FS_MENU)
   TITLE:=SMBFS common dependencies support
   HIDDEN:=1
-  KCONFIG:=CONFIG_SMBFS_COMMON
+  DEPENDS:=+kmod-fs-netfs +kmod-nls-ucs2-utils
+  KCONFIG:=\
+	CONFIG_SMBFS
   FILES:= \
-	$(LINUX_DIR)/fs/smbfs_common/cifs_arc4.ko \
-	$(LINUX_DIR)/fs/smbfs_common/cifs_md4.ko
+	$(LINUX_DIR)/fs/smb/common/cifs_arc4.ko \
+	$(LINUX_DIR)/fs/smb/common/cifs_md4.ko
 endef
 
 define KernelPackage/fs-smbfs-common/description
@@ -108,7 +110,7 @@ define KernelPackage/fs-cifs
 	CONFIG_CIFS_DFS_UPCALL=n \
 	CONFIG_CIFS_UPCALL=n
   FILES:= \
-	$(LINUX_DIR)/fs/cifs/cifs.ko
+	$(LINUX_DIR)/fs/smb/client/cifs.ko
   AUTOLOAD:=$(call AutoLoad,30,cifs)
   $(call AddDepends/nls)
   DEPENDS+= \
@@ -269,7 +271,9 @@ define KernelPackage/fs-fscache
 	CONFIG_FSCACHE_OBJECT_LIST=n \
 	CONFIG_CACHEFILES \
 	CONFIG_CACHEFILES_DEBUG=n \
-	CONFIG_CACHEFILES_HISTOGRAM=n
+	CONFIG_CACHEFILES_HISTOGRAM=n \
+	CONFIG_CACHEFILES_ERROR_INJECTION=n \
+	CONFIG_CACHEFILES_ONDEMAND=n
   FILES:= \
 	$(LINUX_DIR)/fs/fscache/fscache.ko \
 	$(LINUX_DIR)/fs/cachefiles/cachefiles.ko
@@ -336,6 +340,7 @@ define KernelPackage/fs-jfs
   KCONFIG:=CONFIG_JFS_FS
   FILES:=$(LINUX_DIR)/fs/jfs/jfs.ko
   AUTOLOAD:=$(call AutoLoad,30,jfs,1)
+  DEPENDS:=+kmod-nls-ucs2-utils
   $(call AddDepends/nls)
 endef
 
@@ -370,7 +375,8 @@ define KernelPackage/fs-ksmbd
 	CONFIG_SMB_SERVER_SMBDIRECT=n \
 	CONFIG_SMB_SERVER_CHECK_CAP_NET_ADMIN=n \
 	CONFIG_SMB_SERVER_KERBEROS5=n
-  FILES:=$(LINUX_DIR)/fs/ksmbd/ksmbd.ko
+  FILES:= \
+	 $(LINUX_DIR)/fs/smb/server/ksmbd.ko
   AUTOLOAD:=$(call AutoLoad,41,ksmbd)
 endef
 
@@ -461,8 +467,7 @@ define KernelPackage/fs-nfs-common
   FILES:= \
 	$(LINUX_DIR)/fs/lockd/lockd.ko \
 	$(LINUX_DIR)/net/sunrpc/sunrpc.ko \
-	$(LINUX_DIR)/fs/nfs_common/grace.ko \
-	$(LINUX_DIR)/fs/nfs_common/nfs_ssc.ko
+	$(LINUX_DIR)/fs/nfs_common/grace.ko
   AUTOLOAD:=$(call AutoLoad,30,grace sunrpc lockd)
 endef
 
@@ -697,12 +702,10 @@ define KernelPackage/pstore
   DEFAULT:=m if ALL_KMODS
   KCONFIG:= \
 	CONFIG_PSTORE \
-	CONFIG_PSTORE_COMPRESS=y \
-	CONFIG_PSTORE_COMPRESS_DEFAULT="deflate" \
-	CONFIG_PSTORE_DEFLATE_COMPRESS=y \
-	CONFIG_PSTORE_DEFLATE_COMPRESS_DEFAULT=y
+	CONFIG_PSTORE_COMPRESS=y
   FILES:= $(LINUX_DIR)/fs/pstore/pstore.ko
   AUTOLOAD:=$(call AutoLoad,30,pstore,1)
+  DEPENDS:=+kmod-lib-zlib-deflate +kmod-lib-zlib-inflate
 endef
 
 define KernelPackage/pstore/description

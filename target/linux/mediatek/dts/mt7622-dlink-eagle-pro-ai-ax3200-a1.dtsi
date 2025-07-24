@@ -54,10 +54,6 @@
 	status = "okay";
 };
 
-&btif {
-	status = "okay";
-};
-
 &eth {
 	pinctrl-names = "default";
 	pinctrl-0 = <&eth_pins>;
@@ -80,9 +76,9 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		switch: switch@0 {
+		switch: switch@1f {
 			compatible = "mediatek,mt7531";
-			reg = <0>;
+			reg = <31>;
 			interrupt-controller;
 			#interrupt-cells = <1>;
 			interrupt-parent = <&pio>;

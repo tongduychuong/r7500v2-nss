@@ -18,9 +18,14 @@ define Device/aerohive_hiveap-330
   DEVICE_PACKAGES := kmod-tpm-i2c-atmel kmod-hwmon-lm70
   BLOCKSIZE := 128k
   KERNEL := kernel-bin | uImage none
-  KERNEL_INITRAMFS := kernel-bin | MultiImage none
+  KERNEL_INITRAMFS := kernel-bin | uImage none
+  KERNEL_NAME := simpleImage.hiveap-330
   KERNEL_SIZE := 16m
   IMAGES := sysupgrade.bin
+  KERNEL_ENTRY := 0x1500000
+  KERNEL_LOADADDR := 0x1500000
+  # append-dtb is still needed, as otherwise u-boot bootm complains
+  # about not having a FDT to edit.
   IMAGE/sysupgrade.bin := append-dtb | pad-to 256k | append-kernel | \
 	append-rootfs | pad-rootfs | check-size | append-metadata
   IMAGE_SIZE = 63m
@@ -78,8 +83,8 @@ define Device/extreme-networks_ws-ap3825i
   DEVICE_PACKAGES := kmod-ath10k-ct ath10k-firmware-qca988x-ct
   BLOCKSIZE := 128k
   KERNEL_NAME := simpleImage.ws-ap3825i
-  KERNEL_ENTRY := 0x1000000
-  KERNEL_LOADADDR := 0x1000000
+  KERNEL_ENTRY := 0x1500000
+  KERNEL_LOADADDR := 0x1500000
   KERNEL = kernel-bin | fit none $(KDIR)/image-$$(DEVICE_DTS).dtb
   IMAGES := sysupgrade.bin
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
@@ -89,7 +94,10 @@ TARGET_DEVICES += extreme-networks_ws-ap3825i
 define Device/hpe_msm460
   DEVICE_VENDOR := Hewlett-Packard
   DEVICE_MODEL := MSM460
-  KERNEL = kernel-bin | lzma | fit lzma $(KDIR)/image-$$(DEVICE_DTS).dtb
+  KERNEL = kernel-bin | fit none $(KDIR)/image-$$(DEVICE_DTS).dtb
+  KERNEL_NAME := zImage.la3000000
+  KERNEL_ENTRY := 0x3000000
+  KERNEL_LOADADDR := 0x3000000
   BLOCKSIZE := 128k
   PAGESIZE := 2048
   SUBPAGESIZE := 2048
@@ -112,5 +120,7 @@ define Device/ocedo_panda
   IMAGES := fdt.bin sysupgrade.bin
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
   IMAGE/fdt.bin := append-dtb
+  DEVICE_COMPAT_VERSION := 1.1
+  DEVICE_COMPAT_MESSAGE := Config cannot be migrated from swconfig to DSA
 endef
 TARGET_DEVICES += ocedo_panda

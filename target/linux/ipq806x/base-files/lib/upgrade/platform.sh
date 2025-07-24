@@ -13,10 +13,13 @@ platform_do_upgrade() {
 	arris,tr4400-v2 |\
 	askey,rt4230w-rev6 |\
 	compex,wpq864|\
+	fortinet,fap-421e|\
+	linksys,e8350-v1|\
 	netgear,d7800 |\
 	netgear,r7500 |\
 	netgear,r7500v2 |\
 	netgear,r7800 |\
+	netgear,xr450 |\
 	netgear,xr500 |\
 	nokia,ac400i |\
 	qcom,ipq8064-ap148 |\
@@ -41,6 +44,11 @@ platform_do_upgrade() {
 			fw_setenv active 1 || exit 1
 			CI_UBIPART="rootfs1"
 		fi
+		nand_do_upgrade "$1"
+		;;
+	extreme,ap3935)
+		CI_ROOTPART="nand_flash"
+		CI_KERNPART="PriImg"
 		nand_do_upgrade "$1"
 		;;
 	linksys,ea7500-v1 |\

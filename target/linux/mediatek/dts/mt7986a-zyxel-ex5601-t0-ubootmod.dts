@@ -13,9 +13,15 @@
 / {
 	model = "Zyxel EX5601-T0 ubootmod";
 	compatible = "zyxel,ex5601-t0-ubootmod", "mediatek,mt7986a";
+
 	memory@40000000 {
 		device_type = "memory";
 		reg = <0x40000000 0x20000000>;
+	};
+
+	chosen {
+		bootargs-append = " root=/dev/fit0 rootwait";
+		rootdisk = <&ubi_rootdisk>;
 	};
 };
 
@@ -36,6 +42,35 @@
 		label = "Factory";
 		reg = <0x180000 0x0200000>;
 		read-only;
+
+		nvmem-layout {
+			compatible = "fixed-layout";
+			#address-cells = <1>; 
+			#size-cells = <1>;
+
+			eeprom_factory: eeprom@0 {
+				#size-cells = <1>;
+				reg = <0x0 0x1000>;
+			};
+
+			macaddr_factory_0004: macaddr@0004 {
+				compatible = "mac-base";
+				reg = <0x0004 0x6>;
+				#nvmem-cell-cells = <1>;
+			};
+
+			macaddr_factory_0024: macaddr@0024 {
+				compatible = "mac-base";
+				reg = <0x0024 0x6>;
+				#nvmem-cell-cells = <1>;
+			};
+
+			macaddr_factory_002a: macaddr@002a {
+				compatible = "mac-base";
+				reg = <0x002a 0x6>;
+				#nvmem-cell-cells = <1>;
+			};
+		};
 	};
 
 	partition@380000 {
@@ -43,49 +78,22 @@
 		reg = <0x380000 0x0200000>;
 		read-only;
 	};
-			
+
 	partition@540000 {
 		label = "zloader";
 		reg = <0x540000 0x0040000>;
 		read-only;
 	};
-			
+
 	partition@580000 {
 		label = "ubi";
 		reg = <0x580000 0x1da80000>;
-	};
-};
+		compatible = "linux,ubi";
 
-&factory {
-	compatible = "nvmem-cells";
-	#address-cells = <1>;
-	#size-cells = <1>;
-
-	nvmem-layout {
-		compatible = "fixed-layout";
-		#address-cells = <1>; 
-
-		eeprom_factory: eeprom@0 {
-			#size-cells = <1>;
-			reg = <0x0 0x1000>;
-		};
-
-		macaddr_factory_0004: macaddr@0004 {
-			compatible = "mac-base";
-			reg = <0x0004 0x6>;
-			#nvmem-cell-cells = <1>;
-		};
-
-		macaddr_factory_0024: macaddr@0024 {
-			compatible = "mac-base";
-			reg = <0x0024 0x6>;
-			#nvmem-cell-cells = <1>;
-		};
-
-		macaddr_factory_002a: macaddr@002a {
-			compatible = "mac-base";
-			reg = <0x002a 0x6>;
-			#nvmem-cell-cells = <1>;
+		volumes {
+			ubi_rootdisk: ubi-volume-fit {
+				volname = "fit";
+			};
 		};
 	};
 };

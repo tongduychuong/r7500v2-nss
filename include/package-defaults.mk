@@ -23,7 +23,7 @@ define Package/Default
   SOURCE:=$(patsubst $(TOPDIR)/%,%,$(patsubst $(TOPDIR)/package/%,feeds/base/%,$(CURDIR)))
   ifneq ($(PKG_VERSION),)
     ifneq ($(PKG_RELEASE),)
-      VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
+      VERSION:=$(PKG_VERSION)-r$(PKG_RELEASE)
     else
       VERSION:=$(PKG_VERSION)
     endif
@@ -49,7 +49,7 @@ define Package/Default
   KCONFIG:=
   BUILDONLY:=
   HIDDEN:=
-  URL:=
+  URL:=$(PKG_URL)
   VARIANT:=
   DEFAULT_VARIANT:=
   USERID:=
@@ -151,6 +151,7 @@ define Build/Install/Default
 	$(MAKE_VARS) \
 	$(MAKE) -C $(PKG_BUILD_DIR)/$(MAKE_PATH) \
 		$(MAKE_INSTALL_FLAGS) \
+		$(if $(PKG_SUBDIRS),SUBDIRS='$$$$(wildcard $(PKG_SUBDIRS))') \
 		$(if $(1), $(1), install);
 endef
 

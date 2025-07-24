@@ -27,7 +27,7 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
 --- a/include/net/cfg80211.h
 +++ b/include/net/cfg80211.h
-@@ -343,11 +343,13 @@ struct ieee80211_sta_ht_cap {
+@@ -357,11 +357,13 @@ struct ieee80211_sta_ht_cap {
   * to describe 802.11ac VHT capabilities for an STA.
   *
   * @vht_supported: is VHT supported by the STA
@@ -43,71 +43,28 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
  };
 --- a/net/mac80211/mlme.c
 +++ b/net/mac80211/mlme.c
-@@ -4637,7 +4637,7 @@ static int ieee80211_prep_channel(struct
- 	const struct cfg80211_bss_ies *ies;
- 	int ret;
- 	u32 i;
--	bool have_80mhz;
-+	bool can_vht;
- 
- 	rcu_read_lock();
- 
-@@ -4770,18 +4770,22 @@ static int ieee80211_prep_channel(struct
+@@ -5270,6 +5270,8 @@ ieee80211_determine_our_sta_mode(struct
+ 	if (sband->band != NL80211_BAND_2GHZ) {
+ 		conn->mode = IEEE80211_CONN_MODE_VHT;
+ 		conn->bw_limit = IEEE80211_CONN_BW_LIMIT_160;
++	} else if (sband->vht_cap.vendor_qam256_supported) {
++		conn->mode = IEEE80211_CONN_MODE_VHT;
  	}
  
- 	/* Allow VHT if at least one channel on the sband supports 80 MHz */
--	have_80mhz = false;
-+	can_vht = false;
- 	for (i = 0; i < sband->n_channels; i++) {
- 		if (sband->channels[i].flags & (IEEE80211_CHAN_DISABLED |
- 						IEEE80211_CHAN_NO_80MHZ))
- 			continue;
- 
--		have_80mhz = true;
-+		can_vht = true;
- 		break;
- 	}
- 
--	if (!have_80mhz) {
--		sdata_info(sdata, "80 MHz not supported, disabling VHT\n");
-+	/* Some Vendor supports non-standard QAM-256 on 2.4GHz 802.11n */
-+	if (sband->vht_cap.vendor_qam256_supported)
-+		can_vht = true;
-+
-+	if (!can_vht) {
-+		sdata_info(sdata, "80 MHz or QAM-256 not supported, disabling VHT\n");
- 		*conn_flags |= IEEE80211_CONN_DISABLE_VHT;
- 	}
- 
+ 	if (is_5ghz &&
 --- a/net/mac80211/util.c
 +++ b/net/mac80211/util.c
-@@ -1843,7 +1843,7 @@ static int ieee80211_build_preq_ies_band
- 	int ext_rates_len;
- 	int shift;
- 	u32 rate_flags;
--	bool have_80mhz = false;
-+	bool can_vht = false;
- 
- 	*offset = 0;
- 
-@@ -1973,11 +1973,15 @@ static int ieee80211_build_preq_ies_band
- 						IEEE80211_CHAN_NO_80MHZ))
- 			continue;
- 
--		have_80mhz = true;
-+		can_vht = true;
+@@ -1318,7 +1318,9 @@ static int ieee80211_put_preq_ies_band(s
  		break;
  	}
  
 -	if (sband->vht_cap.vht_supported && have_80mhz) {
-+	/* Some Vendor supports non-standard QAM-256 on 2.4GHz 802.11n */
-+	if (sband->vht_cap.vendor_qam256_supported)
-+		can_vht = true;
-+
-+	if (sband->vht_cap.vht_supported && can_vht) {
- 		if (end - pos < 2 + sizeof(struct ieee80211_vht_cap))
- 			goto out_err;
- 		pos = ieee80211_ie_build_vht_cap(pos, &sband->vht_cap,
++	if (sband->vht_cap.vht_supported &&
++	    (have_80mhz ||
++	     sband->vht_cap.vendor_qam256_supported)) {
+ 		u8 *pos;
+ 
+ 		if (skb_tailroom(skb) < 2 + sizeof(struct ieee80211_vht_cap))
 --- a/net/mac80211/vht.c
 +++ b/net/mac80211/vht.c
 @@ -122,7 +122,7 @@ ieee80211_vht_cap_ie_to_sta_vht_cap(stru
@@ -144,78 +101,49 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
  		return;
  
  	/*
-@@ -358,16 +362,16 @@ ieee80211_sta_cap_rx_bw(struct link_sta_
+@@ -359,23 +363,23 @@ _ieee80211_sta_cap_rx_bw(struct link_sta
  	struct ieee80211_sta_vht_cap *vht_cap = &link_sta->pub->vht_cap;
  	struct ieee80211_sta_he_cap *he_cap = &link_sta->pub->he_cap;
  	struct ieee80211_sta_eht_cap *eht_cap = &link_sta->pub->eht_cap;
-+	struct ieee80211_bss_conf *link_conf;
-+	enum ieee80211_sta_rx_bandwidth ret;
++	enum nl80211_band band;
  	u32 cap_width;
  
-+	rcu_read_lock();
-+	link_conf = rcu_dereference(sdata->vif.link_conf[link_id]);
++	if (chandef) {
++		band = chandef->chan->band;
++	} else {
++		struct ieee80211_bss_conf *link_conf;
++
++		rcu_read_lock();
++		link_conf = rcu_dereference(sdata->vif.link_conf[link_id]);
++		band = link_conf->chanreq.oper.chan->band;
++		rcu_read_unlock();
++	}
 +
  	if (he_cap->has_he) {
--		struct ieee80211_bss_conf *link_conf;
--		enum ieee80211_sta_rx_bandwidth ret;
+-		enum nl80211_band band;
  		u8 info;
  
--		rcu_read_lock();
--		link_conf = rcu_dereference(sdata->vif.link_conf[link_id]);
+-		if (chandef) {
+-			band = chandef->chan->band;
+-		} else {
+-			struct ieee80211_bss_conf *link_conf;
 -
- 		if (eht_cap->has_eht &&
- 		    link_conf->chandef.chan->band == NL80211_BAND_6GHZ) {
+-			rcu_read_lock();
+-			link_conf = rcu_dereference(sdata->vif.link_conf[link_id]);
+-			band = link_conf->chanreq.oper.chan->band;
+-			rcu_read_unlock();
+-		}
+-
+ 		if (eht_cap->has_eht && band == NL80211_BAND_6GHZ) {
  			info = eht_cap->eht_cap_elem.phy_cap_info[0];
-@@ -395,32 +399,42 @@ ieee80211_sta_cap_rx_bw(struct link_sta_
- 			ret = IEEE80211_STA_RX_BW_80;
- 		else
- 			ret = IEEE80211_STA_RX_BW_20;
--out:
--		rcu_read_unlock();
  
--		return ret;
-+		goto out;
+@@ -401,7 +405,8 @@ _ieee80211_sta_cap_rx_bw(struct link_sta
+ 		return IEEE80211_STA_RX_BW_20;
  	}
  
 -	if (!vht_cap->vht_supported)
--		return link_sta->pub->ht_cap.cap & IEEE80211_HT_CAP_SUP_WIDTH_20_40 ?
-+	if (!vht_cap->vht_supported ||
-+	    (link_conf->chandef.chan->band == NL80211_BAND_2GHZ &&
-+	     vht_cap->vendor_qam256_supported)) {
-+		ret = link_sta->pub->ht_cap.cap & IEEE80211_HT_CAP_SUP_WIDTH_20_40 ?
++	if (!vht_cap->vht_supported || (band == NL80211_BAND_2GHZ &&
++				       vht_cap->vendor_qam256_supported))
+ 		return link_sta->pub->ht_cap.cap & IEEE80211_HT_CAP_SUP_WIDTH_20_40 ?
  				IEEE80211_STA_RX_BW_40 :
  				IEEE80211_STA_RX_BW_20;
-+		goto out;
-+	}
- 
- 	cap_width = vht_cap->cap & IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_MASK;
- 
- 	if (cap_width == IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160MHZ ||
--	    cap_width == IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160_80PLUS80MHZ)
--		return IEEE80211_STA_RX_BW_160;
-+	    cap_width == IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160_80PLUS80MHZ) {
-+		ret = IEEE80211_STA_RX_BW_160;
-+		goto out;
-+	}
- 
- 	/*
- 	 * If this is non-zero, then it does support 160 MHz after all,
- 	 * in one form or the other. We don't distinguish here (or even
- 	 * above) between 160 and 80+80 yet.
- 	 */
--	if (vht_cap->cap & IEEE80211_VHT_CAP_EXT_NSS_BW_MASK)
--		return IEEE80211_STA_RX_BW_160;
-+	if (vht_cap->cap & IEEE80211_VHT_CAP_EXT_NSS_BW_MASK) {
-+		ret = IEEE80211_STA_RX_BW_160;
-+		goto out;
-+	}
- 
--	return IEEE80211_STA_RX_BW_80;
-+	ret = IEEE80211_STA_RX_BW_80;
-+
-+out:
-+	rcu_read_unlock();
-+	return ret;
- }
- 
- enum nl80211_chan_width

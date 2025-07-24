@@ -145,6 +145,52 @@ define Device/edgecore_ecw5410
 endef
 TARGET_DEVICES += edgecore_ecw5410
 
+define Device/extreme_ap3935
+	$(call Device/LegacyImage)
+	$(call Device/UbiFit)
+	DEVICE_VENDOR := Extreme Networks
+	DEVICE_MODEL := AP3935
+	SOC := qcom-ipq8068
+	PAGESIZE := 2048
+	BLOCKSIZE := 128k
+	KERNEL = kernel-bin | append-dtb | uImage none | append-uImage-fakehdr filesystem
+	KERNEL_LOADADDR = 0x41408000
+	KERNEL_SIZE := 14400k
+	KERNEL_SUFFIX := -uImage
+	UBINIZE_OPTS := -E 5
+	DEVICE_PACKAGES := ath10k-firmware-qca99x0-ct
+endef
+TARGET_DEVICES += extreme_ap3935
+
+define Device/fortinet_fap-421e
+	$(call Device/FitImage)
+	DEVICE_VENDOR := Fortinet
+	DEVICE_MODEL := FAP-421E
+	SOC := qcom-ipq8064
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	BOARD_NAME := fap-421e
+	DEVICE_PACKAGES := ath10k-firmware-qca99x0-ct
+endef
+TARGET_DEVICES += fortinet_fap-421e
+
+define Device/linksys_e8350-v1
+	$(call Device/LegacyImage)
+	DEVICE_VENDOR := Linksys
+	DEVICE_MODEL := E8350
+	DEVICE_VARIANT := v1
+	SOC := qcom-ipq8064
+	FW_VERSION := v1.0.03.003
+	FW_DEVICE_ID := 8350
+	PAGESIZE := 2048
+	BLOCKSIZE := 128k
+	KERNEL_IN_UBI := 1
+	IMAGES = factory.bin sysupgrade.bin
+	IMAGE/factory.bin := append-ubi | check-size 0x04000000 | linksys-addfwhdr | linksys-bin
+	DEVICE_PACKAGES := ath10k-firmware-qca988x-ct
+endef
+TARGET_DEVICES += linksys_e8350-v1
+
 define Device/linksys_ea7500-v1
 	$(call Device/LegacyImage)
 	$(Device/kernel-size-migration)
@@ -319,6 +365,20 @@ define Device/netgear_r7800
 	DEVICE_PACKAGES := ath10k-firmware-qca9984-ct kmod-ramoops
 endef
 TARGET_DEVICES += netgear_r7800
+
+define Device/netgear_xr450
+	$(call Device/DniImage)
+	DEVICE_VENDOR := NETGEAR
+	DEVICE_MODEL := Nighthawk XR450
+	SOC := qcom-ipq8065
+	KERNEL_SIZE := 4096k
+	NETGEAR_BOARD_ID := XR450
+	NETGEAR_HW_ID := 29764958+0+256+512+4x4+4x4+cascade
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	DEVICE_PACKAGES := ath10k-firmware-qca9984-ct kmod-ramoops
+endef
+TARGET_DEVICES += netgear_xr450
 
 define Device/netgear_xr500
 	$(call Device/DniImage)

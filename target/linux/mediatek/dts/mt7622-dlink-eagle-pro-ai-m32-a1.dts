@@ -60,3 +60,4 @@
 		#nvmem-cell-cells = <1>;
 	};
 };
+
