@@ -32,7 +32,11 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	__u8			inner_protocol_type:1;
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
+<<<<<<< HEAD
 @@ -6117,6 +6117,9 @@ static enum gro_result dev_gro_receive(s
+=======
+@@ -6085,6 +6085,9 @@ static enum gro_result dev_gro_receive(s
+>>>>>>> d08eedd536 (ipq806x-nss)
  	int same_flow;
  	int grow;
  
@@ -42,7 +46,11 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	if (netif_elide_gro(skb->dev))
  		goto normal;
  
+<<<<<<< HEAD
 @@ -8134,6 +8137,48 @@ static void __netdev_adjacent_dev_unlink
+=======
+@@ -8102,6 +8105,48 @@ static void __netdev_adjacent_dev_unlink
+>>>>>>> d08eedd536 (ipq806x-nss)
  					   &upper_dev->adj_list.lower);
  }
  
@@ -91,7 +99,11 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  static int __netdev_upper_dev_link(struct net_device *dev,
  				   struct net_device *upper_dev, bool master,
  				   void *upper_priv, void *upper_info,
+<<<<<<< HEAD
 @@ -8185,6 +8230,7 @@ static int __netdev_upper_dev_link(struc
+=======
+@@ -8153,6 +8198,7 @@ static int __netdev_upper_dev_link(struc
+>>>>>>> d08eedd536 (ipq806x-nss)
  	if (ret)
  		return ret;
  
@@ -99,7 +111,11 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	ret = call_netdevice_notifiers_info(NETDEV_CHANGEUPPER,
  					    &changeupper_info.info);
  	ret = notifier_to_errno(ret);
+<<<<<<< HEAD
 @@ -8281,6 +8327,7 @@ static void __netdev_upper_dev_unlink(st
+=======
+@@ -8249,6 +8295,7 @@ static void __netdev_upper_dev_unlink(st
+>>>>>>> d08eedd536 (ipq806x-nss)
  
  	__netdev_adjacent_dev_unlink_neighbour(dev, upper_dev);
  
@@ -107,7 +123,11 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	call_netdevice_notifiers_info(NETDEV_CHANGEUPPER,
  				      &changeupper_info.info);
  
+<<<<<<< HEAD
 @@ -9100,6 +9147,7 @@ int dev_set_mac_address(struct net_devic
+=======
+@@ -9068,6 +9115,7 @@ int dev_set_mac_address(struct net_devic
+>>>>>>> d08eedd536 (ipq806x-nss)
  	if (err)
  		return err;
  	dev->addr_assign_type = NET_ADDR_SET;

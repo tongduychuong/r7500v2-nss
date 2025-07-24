@@ -19,7 +19,11 @@ Link: https://lore.kernel.org/r/20220706225321.26215-3-ansuelsmth@gmail.com
 
 --- a/arch/arm/boot/dts/qcom-apq8064.dtsi
 +++ b/arch/arm/boot/dts/qcom-apq8064.dtsi
+<<<<<<< HEAD
 @@ -857,6 +857,8 @@
+=======
+@@ -862,6 +862,8 @@
+>>>>>>> d08eedd536 (ipq806x-nss)
  			rpmcc: clock-controller {
  				compatible	= "qcom,rpmcc-apq8064", "qcom,rpmcc";
  				#clock-cells = <1>;

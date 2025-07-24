@@ -19,8 +19,11 @@ PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 
+<<<<<<< HEAD
 HOST_CFLAGS +=-std=gnu17
 
+=======
+>>>>>>> d08eedd536 (ipq806x-nss)
 HOST_CONFIGURE_ARGS += \
 	--disable-debuginfod \
 	--disable-libdebuginfod \

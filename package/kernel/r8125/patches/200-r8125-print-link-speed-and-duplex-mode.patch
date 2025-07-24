@@ -18,12 +18,19 @@ Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
 
 --- a/src/r8125.h
 +++ b/src/r8125.h
+<<<<<<< HEAD
 @@ -1726,6 +1726,9 @@ enum RTL8125_register_content {
+=======
+@@ -1672,6 +1672,8 @@ enum RTL8125_register_content {
+>>>>>>> d08eedd536 (ipq806x-nss)
          LinkStatus = 0x02,
          FullDup = 0x01,
  
 +#define RTL8125_FULL_DUPLEX_MASK (_2500bpsF | _1000bpsF | FullDup)
+<<<<<<< HEAD
 +#define RTL8125_SPEED_1000_MASK (_1000bpsF | _1000bpsL | _2500bpsL)
+=======
+>>>>>>> d08eedd536 (ipq806x-nss)
 +
          /* DBG_reg */
          Fix_Nak_1 = (1 << 4),
@@ -38,11 +45,19 @@ Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
  #include <linux/netdevice.h>
  #include <linux/etherdevice.h>
  #include <linux/delay.h>
+<<<<<<< HEAD
 @@ -5045,6 +5046,38 @@ rtl8125_link_down_patch(struct net_devic
  #endif
  }
  
 +static unsigned int rtl8125_phy_duplex(u32 status)
+=======
+@@ -5116,6 +5117,38 @@ rtl8125_link_down_patch(struct net_devic
+ #endif
+ }
+ 
++static unsigned int rtl8125_phy_duplex(u16 status)
+>>>>>>> d08eedd536 (ipq806x-nss)
 +{
 +        unsigned int duplex = DUPLEX_UNKNOWN;
 +
@@ -56,14 +71,22 @@ Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
 +        return duplex;
 +}
 +
+<<<<<<< HEAD
 +static int rtl8125_phy_speed(u32 status)
+=======
++static int rtl8125_phy_speed(u16 status)
+>>>>>>> d08eedd536 (ipq806x-nss)
 +{
 +        int speed = SPEED_UNKNOWN;
 +
 +        if (status & LinkStatus) {
 +                if (status & _2500bpsF)
 +                        speed = SPEED_2500;
+<<<<<<< HEAD
 +                else if (status & RTL8125_SPEED_1000_MASK)
+=======
++                else if (status & _1000bpsF)
+>>>>>>> d08eedd536 (ipq806x-nss)
 +                        speed = SPEED_1000;
 +                else if (status & _100bps)
 +                        speed = SPEED_100;
@@ -77,14 +100,22 @@ Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
  static void
  _rtl8125_check_link_status(struct net_device *dev, unsigned int link_state)
  {
+<<<<<<< HEAD
 @@ -5057,11 +5090,18 @@ _rtl8125_check_link_status(struct net_de
+=======
+@@ -5128,11 +5161,18 @@ _rtl8125_check_link_status(struct net_de
+>>>>>>> d08eedd536 (ipq806x-nss)
          if (link_state == R8125_LINK_STATE_ON) {
                  rtl8125_link_on_patch(dev);
  
 -                if (netif_msg_ifup(tp))
 -                        printk(KERN_INFO PFX "%s: link up\n", dev->name);
 +                if (netif_msg_ifup(tp)) {
+<<<<<<< HEAD
 +                        const u32 phy_status = RTL_R32(tp, PHYstatus);
+=======
++                        const u16 phy_status = RTL_R16(tp, PHYstatus);
+>>>>>>> d08eedd536 (ipq806x-nss)
 +                        const unsigned int phy_duplex = rtl8125_phy_duplex(phy_status);
 +                        const int phy_speed = rtl8125_phy_speed(phy_status);
 +                        printk(KERN_INFO PFX "%s: Link is Up - %s/%s\n",

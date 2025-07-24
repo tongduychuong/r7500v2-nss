@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+CONFIG_REGULATOR_NSS_VOLT=y
+>>>>>>> d08eedd536 (ipq806x-nss)
 CONFIG_ALIGNMENT_TRAP=y
 # CONFIG_APQ_GCC_8084 is not set
 # CONFIG_APQ_MMCC_8084 is not set

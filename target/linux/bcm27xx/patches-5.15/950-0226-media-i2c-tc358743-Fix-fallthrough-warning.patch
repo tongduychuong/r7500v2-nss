@@ -10,7 +10,11 @@ Signed-off-by: Jacko Dirks <jdirks.linuxdev@gmail.com>
 
 --- a/drivers/media/i2c/tc358743.c
 +++ b/drivers/media/i2c/tc358743.c
+<<<<<<< HEAD
 @@ -2010,6 +2010,7 @@ static int tc358743_probe_of(struct tc35
+=======
+@@ -2006,6 +2006,7 @@ static int tc358743_probe_of(struct tc35
+>>>>>>> d08eedd536 (ipq806x-nss)
  	switch (bps_pr_lane) {
  	default:
  		dev_warn(dev, "untested bps per lane: %u bps\n", bps_pr_lane);

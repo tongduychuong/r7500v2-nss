@@ -73,7 +73,11 @@ Signed-off-by: David S. Miller <davem@davemloft.net>
  /* Specifies the type of the struct net_device::ml_priv pointer */
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
+<<<<<<< HEAD
 @@ -1273,22 +1273,6 @@ int dev_change_name(struct net_device *d
+=======
+@@ -1242,22 +1242,6 @@ int dev_change_name(struct net_device *d
+>>>>>>> d08eedd536 (ipq806x-nss)
  
  	net = dev_net(dev);
  
@@ -96,7 +100,11 @@ Signed-off-by: David S. Miller <davem@davemloft.net>
  	down_write(&devnet_rename_sem);
  
  	if (strncmp(newname, dev->name, IFNAMSIZ) == 0) {
+<<<<<<< HEAD
 @@ -1305,7 +1289,8 @@ int dev_change_name(struct net_device *d
+=======
+@@ -1274,7 +1258,8 @@ int dev_change_name(struct net_device *d
+>>>>>>> d08eedd536 (ipq806x-nss)
  	}
  
  	if (oldname[0] && !strchr(oldname, '%'))

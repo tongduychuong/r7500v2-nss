@@ -82,7 +82,11 @@
  	help
 --- a/local-symbols
 +++ b/local-symbols
+<<<<<<< HEAD
 @@ -94,6 +94,7 @@ ADM8211=
+=======
+@@ -95,6 +95,7 @@ ADM8211=
+>>>>>>> d08eedd536 (ipq806x-nss)
  ATH_COMMON=
  WLAN_VENDOR_ATH=
  ATH_DEBUG=

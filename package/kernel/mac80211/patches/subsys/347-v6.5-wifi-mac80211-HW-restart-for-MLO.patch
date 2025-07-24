@@ -17,7 +17,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
 --- a/net/mac80211/util.c
 +++ b/net/mac80211/util.c
+<<<<<<< HEAD
 @@ -2500,21 +2500,55 @@ int ieee80211_reconfig(struct ieee80211_
+=======
+@@ -2491,21 +2491,55 @@ int ieee80211_reconfig(struct ieee80211_
+>>>>>>> d08eedd536 (ipq806x-nss)
  
  	/* Finally also reconfigure all the BSS information */
  	list_for_each_entry(sdata, &local->interfaces, list) {
@@ -77,7 +81,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  		}
  
  		switch (sdata->vif.type) {
+<<<<<<< HEAD
 @@ -2534,42 +2568,42 @@ int ieee80211_reconfig(struct ieee80211_
+=======
+@@ -2525,42 +2559,42 @@ int ieee80211_reconfig(struct ieee80211_
+>>>>>>> d08eedd536 (ipq806x-nss)
  					    &sdata->deflink.tx_conf[i]);
  			break;
  		}
@@ -150,7 +158,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  			break;
  		case NL80211_IFTYPE_OCB:
  			changed |= BSS_CHANGED_OCB;
+<<<<<<< HEAD
 @@ -2604,6 +2638,7 @@ int ieee80211_reconfig(struct ieee80211_
+=======
+@@ -2595,6 +2629,7 @@ int ieee80211_reconfig(struct ieee80211_
+>>>>>>> d08eedd536 (ipq806x-nss)
  		case NL80211_IFTYPE_NAN:
  			res = ieee80211_reconfig_nan(sdata);
  			if (res < 0) {
@@ -158,7 +170,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  				ieee80211_handle_reconfig_failure(local);
  				return res;
  			}
+<<<<<<< HEAD
 @@ -2621,6 +2656,10 @@ int ieee80211_reconfig(struct ieee80211_
+=======
+@@ -2612,6 +2647,10 @@ int ieee80211_reconfig(struct ieee80211_
+>>>>>>> d08eedd536 (ipq806x-nss)
  			WARN_ON(1);
  			break;
  		}

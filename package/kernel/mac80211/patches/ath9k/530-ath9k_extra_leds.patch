@@ -181,7 +181,11 @@
  
 --- a/drivers/net/wireless/ath/ath9k/init.c
 +++ b/drivers/net/wireless/ath/ath9k/init.c
+<<<<<<< HEAD
 @@ -1090,7 +1090,7 @@ int ath9k_init_device(u16 devid, struct
+=======
+@@ -1088,7 +1088,7 @@ int ath9k_init_device(u16 devid, struct
+>>>>>>> d08eedd536 (ipq806x-nss)
  
  #ifdef CPTCFG_MAC80211_LEDS
  	/* must be initialized before ieee80211_register_hw */
@@ -254,7 +258,11 @@
  
  int ath9k_init_debug(struct ath_hw *ah)
  {
+<<<<<<< HEAD
 @@ -1528,6 +1583,10 @@ int ath9k_init_debug(struct ath_hw *ah)
+=======
+@@ -1530,6 +1585,10 @@ int ath9k_init_debug(struct ath_hw *ah)
+>>>>>>> d08eedd536 (ipq806x-nss)
  			    &fops_eeprom);
  	debugfs_create_file("chanbw", S_IRUSR | S_IWUSR, sc->debug.debugfs_phy,
  			    sc, &fops_chanbw);

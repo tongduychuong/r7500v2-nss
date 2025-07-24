@@ -37,7 +37,11 @@
  void ath10k_thermal_event_temperature(struct ath10k *ar, int temperature);
 --- a/local-symbols
 +++ b/local-symbols
+<<<<<<< HEAD
 @@ -153,6 +153,7 @@ ATH10K_SNOC=
+=======
+@@ -154,6 +154,7 @@ ATH10K_SNOC=
+>>>>>>> d08eedd536 (ipq806x-nss)
  ATH10K_DEBUG=
  ATH10K_DEBUGFS=
  ATH10K_SPECTRAL=

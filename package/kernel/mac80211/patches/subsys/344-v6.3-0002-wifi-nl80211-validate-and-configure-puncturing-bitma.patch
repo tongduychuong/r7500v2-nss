@@ -28,7 +28,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
 --- a/include/net/cfg80211.h
 +++ b/include/net/cfg80211.h
+<<<<<<< HEAD
 @@ -1333,6 +1333,9 @@ struct cfg80211_unsol_bcast_probe_resp {
+=======
+@@ -1335,6 +1335,9 @@ struct cfg80211_unsol_bcast_probe_resp {
+>>>>>>> d08eedd536 (ipq806x-nss)
   * @fils_discovery: FILS discovery transmission parameters
   * @unsol_bcast_probe_resp: Unsolicited broadcast probe response parameters
   * @mbssid_config: AP settings for multiple bssid
@@ -38,7 +42,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
   */
  struct cfg80211_ap_settings {
  	struct cfg80211_chan_def chandef;
+<<<<<<< HEAD
 @@ -1367,6 +1370,7 @@ struct cfg80211_ap_settings {
+=======
+@@ -1369,6 +1372,7 @@ struct cfg80211_ap_settings {
+>>>>>>> d08eedd536 (ipq806x-nss)
  	struct cfg80211_fils_discovery fils_discovery;
  	struct cfg80211_unsol_bcast_probe_resp unsol_bcast_probe_resp;
  	struct cfg80211_mbssid_config mbssid_config;
@@ -46,7 +54,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  };
  
  /**
+<<<<<<< HEAD
 @@ -1384,6 +1388,9 @@ struct cfg80211_ap_settings {
+=======
+@@ -1386,6 +1390,9 @@ struct cfg80211_ap_settings {
+>>>>>>> d08eedd536 (ipq806x-nss)
   * @radar_required: whether radar detection is required on the new channel
   * @block_tx: whether transmissions should be blocked while changing
   * @count: number of beacons until switch
@@ -56,7 +68,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
   */
  struct cfg80211_csa_settings {
  	struct cfg80211_chan_def chandef;
+<<<<<<< HEAD
 @@ -1396,6 +1403,7 @@ struct cfg80211_csa_settings {
+=======
+@@ -1398,6 +1405,7 @@ struct cfg80211_csa_settings {
+>>>>>>> d08eedd536 (ipq806x-nss)
  	bool radar_required;
  	bool block_tx;
  	u8 count;
@@ -137,7 +153,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  int nl80211_parse_chandef(struct cfg80211_registered_device *rdev,
  			  struct genl_info *info,
  			  struct cfg80211_chan_def *chandef)
+<<<<<<< HEAD
 @@ -5974,6 +5990,14 @@ static int nl80211_start_ap(struct sk_bu
+=======
+@@ -5969,6 +5985,14 @@ static int nl80211_start_ap(struct sk_bu
+>>>>>>> d08eedd536 (ipq806x-nss)
  		goto out;
  	}
  
@@ -152,7 +172,11 @@ Signed-off-by: Johannes Berg <johannes.berg@intel.com>
  	if (!cfg80211_reg_can_beacon_relax(&rdev->wiphy, &params->chandef,
  					   wdev->iftype)) {
  		err = -EINVAL;
+<<<<<<< HEAD
 @@ -10126,6 +10150,14 @@ skip_beacons:
+=======
+@@ -10107,6 +10131,14 @@ skip_beacons:
+>>>>>>> d08eedd536 (ipq806x-nss)
  	if (info->attrs[NL80211_ATTR_CH_SWITCH_BLOCK_TX])
  		params.block_tx = true;
  

@@ -100,7 +100,11 @@ Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
 
 --- a/drivers/net/dsa/b53/b53_common.c
 +++ b/drivers/net/dsa/b53/b53_common.c
+<<<<<<< HEAD
 @@ -2495,6 +2495,19 @@ static const struct b53_chip_data b53_sw
+=======
+@@ -2473,6 +2473,19 @@ static const struct b53_chip_data b53_sw
+>>>>>>> d08eedd536 (ipq806x-nss)
  		.jumbo_size_reg = B53_JUMBO_MAX_SIZE_63XX,
  	},
  	{

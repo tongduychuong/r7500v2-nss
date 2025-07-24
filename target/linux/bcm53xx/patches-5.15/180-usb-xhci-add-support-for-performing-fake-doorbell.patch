@@ -109,11 +109,19 @@ it on BCM4708 family.
  
 --- a/drivers/usb/host/xhci.h
 +++ b/drivers/usb/host/xhci.h
+<<<<<<< HEAD
 @@ -1670,6 +1670,7 @@ struct xhci_hcd {
  #define XHCI_WRITE_64_HI_LO	BIT_ULL(47)
  #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
  #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(49)
 +#define XHCI_FAKE_DOORBELL     BIT_ULL(50)
+=======
+@@ -1664,6 +1664,7 @@ struct xhci_hcd {
+ #define XHCI_ZHAOXIN_HOST	BIT_ULL(46)
+ #define XHCI_WRITE_64_HI_LO	BIT_ULL(47)
+ #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
++#define XHCI_FAKE_DOORBELL     BIT_ULL(49)
+>>>>>>> d08eedd536 (ipq806x-nss)
  
  	unsigned int		num_active_eps;
  	unsigned int		limit_active_eps;

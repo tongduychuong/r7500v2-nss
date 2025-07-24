@@ -19,7 +19,10 @@ HOST_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 
+<<<<<<< HEAD
 HOST_CFLAGS += -std=gnu17
+=======
+>>>>>>> d08eedd536 (ipq806x-nss)
 HOST_CONFIGURE_VARS += gl_cv_func_strstr_linear=no
 
 define Host/Uninstall

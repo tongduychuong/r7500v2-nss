@@ -13,7 +13,11 @@ Acked-by: Maxime Ripard <maxime@cerno.tech>
 
 --- a/drivers/gpu/drm/panel/panel-simple.c
 +++ b/drivers/gpu/drm/panel/panel-simple.c
+<<<<<<< HEAD
 @@ -2324,6 +2324,32 @@ static const struct panel_desc friendlya
+=======
+@@ -2323,6 +2323,32 @@ static const struct panel_desc friendlya
+>>>>>>> d08eedd536 (ipq806x-nss)
  	},
  };
  
@@ -46,7 +50,11 @@ Acked-by: Maxime Ripard <maxime@cerno.tech>
  static const struct drm_display_mode giantplus_gpg482739qs5_mode = {
  	.clock = 9000,
  	.hdisplay = 480,
+<<<<<<< HEAD
 @@ -4741,6 +4767,9 @@ static const struct of_device_id platfor
+=======
+@@ -4740,6 +4766,9 @@ static const struct of_device_id platfor
+>>>>>>> d08eedd536 (ipq806x-nss)
  		.compatible = "friendlyarm,hd702e",
  		.data = &friendlyarm_hd702e,
  	}, {

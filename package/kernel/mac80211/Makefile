@@ -10,13 +10,22 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
 
+<<<<<<< HEAD
 PKG_VERSION:=6.1.145-1
+=======
+PKG_VERSION:=6.1.110-1
+>>>>>>> d08eedd536 (ipq806x-nss)
 PKG_RELEASE:=1
 PKG_LICENSE:=GPL-2.0-only
 PKG_LICENSE_FILES:=COPYING
 
+<<<<<<< HEAD
 PKG_SOURCE_URL:=@KERNEL/linux/kernel/projects/backports/stable/v6.1.145/
 PKG_HASH:=05f2c39f1be0aab49014a6e27a9492ce7ed0491f552db8a07f3ba0de33b9317d
+=======
+PKG_SOURCE_URL:=@KERNEL/linux/kernel/projects/backports/stable/v6.1.110/
+PKG_HASH:=2415bc529ca25be0aa597f9638d8b6fc4138080bbaea96881a38101896df6703
+>>>>>>> d08eedd536 (ipq806x-nss)
 
 PKG_SOURCE:=backports-$(PKG_VERSION).tar.xz
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/backports-$(PKG_VERSION)
@@ -80,6 +89,10 @@ config-$(CONFIG_PACKAGE_CFG80211_TESTMODE) += NL80211_TESTMODE
 
 config-$(call config_package,mac80211) += MAC80211
 config-$(CONFIG_PACKAGE_MAC80211_MESH) += MAC80211_MESH
+<<<<<<< HEAD
+=======
+config-$(CONFIG_PACKAGE_MAC80211_NSS_SUPPORT) += MAC80211_NSS_SUPPORT
+>>>>>>> d08eedd536 (ipq806x-nss)
 
 include ath.mk
 include broadcom.mk
@@ -123,7 +136,11 @@ define KernelPackage/mac80211
   $(call KernelPackage/mac80211/Default)
   TITLE:=Linux 802.11 Wireless Networking Stack
   # +kmod-crypto-cmac is a runtime only dependency of net/mac80211/aes_cmac.c
+<<<<<<< HEAD
   DEPENDS+= +kmod-cfg80211 +kmod-crypto-cmac +kmod-crypto-ccm +kmod-crypto-gcm +hostapd-common
+=======
+  DEPENDS+= +kmod-cfg80211 +kmod-crypto-cmac +kmod-crypto-ccm +kmod-crypto-gcm +hostapd-common +PACKAGE_kmod-qca-nss-drv:kmod-qca-nss-drv
+>>>>>>> d08eedd536 (ipq806x-nss)
   KCONFIG:=\
 	CONFIG_AVERAGE=y
   FILES:= $(PKG_BUILD_DIR)/net/mac80211/mac80211.ko
@@ -134,6 +151,19 @@ endef
 define KernelPackage/mac80211/config
   if PACKAGE_kmod-mac80211
 
+<<<<<<< HEAD
+=======
+		 if PACKAGE_kmod-qca-nss-drv
+		config PACKAGE_MAC80211_NSS_SUPPORT
+			bool "Enable NSS support for IPQ platform"
+			default y
+			help
+			  This option enables support for NSS in boards
+			  like Netgear R7800.
+	endif
+
+
+>>>>>>> d08eedd536 (ipq806x-nss)
 	config PACKAGE_MAC80211_DEBUGFS
 		bool "Export mac80211 internals in DebugFS"
 		select KERNEL_DEBUG_FS
@@ -275,9 +305,18 @@ ifeq ($(BUILD_VARIANT),smallbuffers)
 	C_DEFINES+= -DCONFIG_ATH10K_SMALLBUFFERS
 endif
 
+<<<<<<< HEAD
 MAKE_OPTS:= \
 	$(subst -C $(LINUX_DIR),-C "$(PKG_BUILD_DIR)",$(KERNEL_MAKEOPTS)) \
 	EXTRA_CFLAGS="-I$(PKG_BUILD_DIR)/include $(IREMAP_CFLAGS) $(C_DEFINES)" \
+=======
+C_DEFINES+= -DSTANDALONE_CT
+
+MAKE_OPTS:= -C "$(PKG_BUILD_DIR)" \
+	$(KERNEL_MAKE_FLAGS) \
+	EXTRA_CFLAGS="-I$(PKG_BUILD_DIR)/include $(IREMAP_CFLAGS) $(C_DEFINES) \
+		-I$(STAGING_DIR)/usr/include/qca-nss-drv" \
+>>>>>>> d08eedd536 (ipq806x-nss)
 	KLIB_BUILD="$(LINUX_DIR)" \
 	MODPROBE=true \
 	KLIB=$(TARGET_MODULES_DIR) \

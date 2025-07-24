@@ -26,7 +26,11 @@ Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
+<<<<<<< HEAD
 @@ -5747,13 +5747,13 @@ static const u32 hdmi_colorimetry_val[]
+=======
+@@ -5746,13 +5746,13 @@ static const u32 hdmi_colorimetry_val[]
+>>>>>>> d08eedd536 (ipq806x-nss)
  #undef ACE
  
  /**
@@ -43,7 +47,11 @@ Signed-off-by: Maxime Ripard <maxime@cerno.tech>
  				  const struct drm_connector_state *conn_state)
  {
  	u32 colorimetry_val;
+<<<<<<< HEAD
 @@ -5772,7 +5772,7 @@ drm_hdmi_avi_infoframe_colorspace(struct
+=======
+@@ -5771,7 +5771,7 @@ drm_hdmi_avi_infoframe_colorspace(struct
+>>>>>>> d08eedd536 (ipq806x-nss)
  	frame->extended_colorimetry = (colorimetry_val >> 2) &
  					EXTENDED_COLORIMETRY_MASK;
  }
