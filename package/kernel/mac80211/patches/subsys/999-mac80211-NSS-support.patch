@@ -73,7 +73,7 @@
  /**
   * DOC: Interface list locking
   *
-@@ -441,6 +448,64 @@ static int ieee80211_open(struct net_dev
+@@ -462,6 +469,64 @@ static int ieee80211_open(struct net_dev
  	return err;
  }
  
@@ -138,7 +138,7 @@
  static void ieee80211_do_stop(struct ieee80211_sub_if_data *sdata, bool going_down)
  {
  	struct ieee80211_local *local = sdata->local;
-@@ -802,8 +867,24 @@ static void ieee80211_teardown_sdata(str
+@@ -841,8 +906,24 @@ static void ieee80211_teardown_sdata(str
  	ieee80211_link_stop(&sdata->deflink);
  }
  
@@ -163,7 +163,7 @@
  	ieee80211_teardown_sdata(IEEE80211_DEV_TO_SUB_IF(dev));
  }
  
-@@ -831,6 +912,9 @@ static int ieee80211_netdev_setup_tc(str
+@@ -870,6 +951,9 @@ static int ieee80211_netdev_setup_tc(str
  static const struct net_device_ops ieee80211_dataif_ops = {
  	.ndo_open		= ieee80211_open,
  	.ndo_stop		= ieee80211_stop,

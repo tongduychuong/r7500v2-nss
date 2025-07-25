@@ -11,7 +11,7 @@
  	sta->cparams.ecn = true;
  	sta->cparams.ce_threshold_selector = 0;
  	sta->cparams.ce_threshold_mask = 0;
-@@ -2801,23 +2801,18 @@ unsigned long ieee80211_sta_last_active(
+@@ -2815,23 +2815,18 @@ unsigned long ieee80211_sta_last_active(
  
  static void sta_update_codel_params(struct sta_info *sta, u32 thr)
  {
